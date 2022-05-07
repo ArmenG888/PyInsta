@@ -1,10 +1,10 @@
 {% include 'post/base.html' %}
 {% block content %}
 {% for post in posts %}
-    <a><div>
+    <a href="p/{{post.id}}"><div>
         <p>{{post.user}}</p>
         <p>{{post.date_posted}}</p>
-        <img src="{{post.image.url}}">
+        <img style="width:auto; height:300px;" src="{{post.image.url}}">
         <h2>{{post.description}}</h2>
         <h3>Likes {{post.likes}}</h3>
         <h3>Comments {{post.comments_number}} </h3>

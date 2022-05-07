@@ -21,5 +21,5 @@ class comment(models.Model):
     text = models.TextField(default="")
     user_liked = models.ManyToManyField(User, related_name="users_liked_comment", default="", blank=True)
     def likes(self):
-        return len(self.user_liked.all)
+        return len(self.user_liked.all())
  
