@@ -4,13 +4,13 @@
     <p>{{post.user}}</p>
     <p>{{post.date_posted}}</p>
     <img style="width:auto; height:500px;" src="{{post.image.url}}">
-    <h3>Likes {{post.likes}}</h3>
+    <a href="{% url 'post-like-detail' id=post.id %}"><h3>Like {{post.likes}}</h3></a>
     <h2>{{post.description}}</h2>
     <h2> Comments </h2>
     {% for comment in comments %}
         <p>{{ comment.user }}</p>
         <h3>{{ comment.text}}</h3>
-        <h3> Likes {{comment.likes}}</h3>
+        <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}"><h3> Likes {{comment.likes}}</h3>
     {% endfor %}
 </div>
 {% endblock content %}
