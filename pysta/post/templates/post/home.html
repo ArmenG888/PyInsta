@@ -1,0 +1,13 @@
+{% include 'post/base.html' %}
+{% block content %}
+{% for post in posts %}
+    <a><div>
+        <p>{{post.user}}</p>
+        <p>{{post.date_posted}}</p>
+        <img src="{{post.image.url}}">
+        <h2>{{post.description}}</h2>
+        <h3>Likes {{post.likes}}</h3>
+        <h3>Comments {{post.comments_number}} </h3>
+    </div></a>
+{% endfor %}
+{% endblock content%}
