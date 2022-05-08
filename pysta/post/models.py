@@ -21,12 +21,12 @@ class comment(models.Model):
     user = models.ForeignKey(User, related_name="comment_author", on_delete=models.CASCADE)
     text = models.TextField(default="")
     user_liked = models.ManyToManyField(User, related_name="users_liked_comment", default="", blank=True)
+    replys = models.ManyToManyField("post.reply", related_name="comment_replys", default="", blank=True)
+    def replys_num(self):
+        return len(self.replys.all())
     def likes(self):
         return len(self.user_liked.all())
 class reply(models.Model):
     comment = models.ForeignKey(comment, on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="reply_author", on_delete=models.CASCADE)
     text = models.TextField(default="")
-    user_liked = models.ManyToManyField(User, related_name="users_liked_reply", default="", blank=True)
-    def likes(self):
-        return len(self.user_liked.all())

@@ -4,13 +4,25 @@
     <p>{{post.user}}</p>
     <p>{{post.date_posted}}</p>
     <img style="width:auto; height:500px;" src="{{post.image.url}}">
-    <a href="{% url 'post-like-detail' id=post.id %}"><h3>Like {{post.likes}}</h3></a>
+    <a href="{% url 'post-like-detail' id=post.id %}"><h3>❤️ {{post.likes}}</h3></a>
     <h2>{{post.description}}</h2>
-    <h2> Comments </h2>
-    {% for comment in comments %}
-        <p>{{ comment.user }}</p>
-        <h3>{{ comment.text}}</h3>
-        <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}"><h3> Likes {{comment.likes}}</h3>
-    {% endfor %}
+
+    <details>
+        <summary>Comments {{post.comments_number}}</summary>
+            {% for comment in comments %}
+                <div class="comment">
+                    <p>{{ comment.user }} {{ comment.text}}</p>
+                    <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}"><p> ❤️ {{comment.likes}}</p></a>
+                    <details>
+                        <summary>replys {{comment.replys_num}}</summary>
+                        <div style="margin:10px;" class="replys">
+                            {% for reply in comment.replys.all %} 
+                                <p>{{reply.user}} {{reply.text}}</p>
+                            {% endfor %}
+                        </div>
+                    </details>     
+                </div>
+            {% endfor %}
+    </details>
 </div>
 {% endblock content %}
