@@ -1,31 +1,35 @@
-from codeop import CommandCompiler
-from pydoc import describe
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class post(models.Model):
     user = models.ForeignKey(User, related_name="post_author", on_delete=models.CASCADE)
     image = models.ImageField()
     description = models.TextField(default="")
-    date_posted = models.DateField(auto_now=True)
+    date_posted = models.DateTimeField(default=timezone.now)
     user_liked = models.ManyToManyField(User, related_name="users_liked_post", default="", blank=True)
+    likes = models.IntegerField(default=0)
     comments_number = models.IntegerField(default=0)
-    def likes(self):
+    def likess(self):
         return len(self.user_liked.all())
 
     class Meta:
-        ordering = ['date_posted'] 
+        ordering = ['-likes','-date_posted']
 
 class comment(models.Model):
     post = models.ForeignKey(post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="comment_author", on_delete=models.CASCADE)
     text = models.TextField(default="")
     user_liked = models.ManyToManyField(User, related_name="users_liked_comment", default="", blank=True)
+    likes = models.IntegerField(default=0)
     replys = models.ManyToManyField("post.reply", related_name="comment_replys", default="", blank=True)
     def replys_num(self):
         return len(self.replys.all())
-    def likes(self):
+    def likess(self):
         return len(self.user_liked.all())
+    
+    class Meta:
+        ordering = ['-likes']
 class reply(models.Model):
     comment = models.ForeignKey(comment, on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="reply_author", on_delete=models.CASCADE)

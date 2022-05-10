@@ -8,6 +8,7 @@ def home(request):
     for i in post.objects.all():
         comments = i.comment_set.all()
         i.comments_number = len(comments)
+        i.likes = i.likess()
         i.save()
     context = {
         'posts':post.objects.all()
@@ -22,6 +23,10 @@ def post_detail_view(request, id):
         replys = comment.reply_set.all()
         comment.replys.set(replys)
         comment.save()
+    for i in post_x.comment_set.all():
+        i.likes = i.likess()
+        i.save()
+    comments = post_x.comment_set.all()  
     context = {
         'post':post_x,
         'comments':comments
@@ -58,6 +63,7 @@ def like_detail(request, id):
     
 def comment_like(request, id, comment_id):
     comment_x = comment.objects.all().filter(id=comment_id)[0]
+    post_x = comment.objects.all().filter(id=id)[0]
     already_liked = False 
     for i in comment_x.user_liked.all():
         if i == request.user:
@@ -67,5 +73,6 @@ def comment_like(request, id, comment_id):
         comment_x.user_liked.add(request.user)
     else:
         comment_x.user_liked.remove(request.user)
+    
 
     return redirect('post-detail', id) 
