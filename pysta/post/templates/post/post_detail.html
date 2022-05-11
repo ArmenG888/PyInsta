@@ -11,13 +11,13 @@
         <summary>Comments {{post.comments_number}}</summary>
             {% for comment in comments %}
                 <div class="comment">
-                    <p>{{ comment.user }} {{ comment.text}}</p>
+                    <p><img class="pfp" src="{{comment.user.profile.image.url}}" alt="Avatar">{{comment.user}} {{ comment.text}}</p>
                     <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}"><p> ❤️ {{comment.likes}}</p></a>
                     <details>
                         <summary>replys {{comment.replys_num}}</summary>
                         <div style="margin:10px;" class="replys">
                             {% for reply in comment.replys.all %} 
-                                <p>{{reply.user}} {{reply.text}}</p>
+                                <p><img class="pfp" src="{{reply.user.profile.image.url}}"> {{reply.user}} {{reply.text}}</p>
                             {% endfor %}
                         </div>
                     </details>     
