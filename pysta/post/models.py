@@ -11,9 +11,9 @@ class post(models.Model):
     likes = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
     comments_number = models.IntegerField(default=0)
+    comments = models.ManyToManyField("post.comment", related_name="post_comments")
     def likess(self):
         return len(self.user_liked.all())
-
     class Meta:
         ordering = ['-likes','-views','-comments_number','-date_posted']
 
