@@ -8,6 +8,7 @@ def home(request):
     for i in post.objects.all():
         comments = i.comment_set.all()
         i.comments_number = len(comments)
+        i.comments.set(comments)
         i.likes = i.likess()
         i.save()
     context = {
@@ -18,6 +19,8 @@ def home(request):
 
 def post_detail_view(request, id):
     post_x = post.objects.all().filter(id=id)[0]
+    post_x.views += 1
+    post_x.save()
     comments = post_x.comment_set.all()
     for comment in comments:
         replys = comment.reply_set.all()

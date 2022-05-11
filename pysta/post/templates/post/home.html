@@ -1,15 +1,16 @@
 {% include 'post/base.html' %}
 {% block content %}
-<div class="posts">
-    {% for post in posts %}
-        <a href="{% url 'post-detail' id=post.id %}">
-            <p>{{post.user}}</p>
+{% for post in posts %}
+    <a><div class="posts">
+            <p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
+            
             <p>{{post.date_posted}}</p>
-            <img style="width:auto; height:300px;" src="{{post.image.url}}">
-            <h2>{{post.description}}</h2>
-            <a href="{% url 'post-like' id=post.id %}"><h3>❤️ {{post.likes}}</h3></a>
-            <a href="{% url 'post-detail' id=post.id %}"><h3>Comments {{post.comments_number}} </h3></a>
-        </a>
-</div>
+            <img class="posts-image" src="{{post.image.url}}">
+            <p>{{post.description}}</p>
+            <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">❤️ {{post.likes}}</a>
+            {% for comment in post.comments.all|slice:"0:3"%}
+                <p class="posts-comments">{{comment.user}} {{comment.text}}</p>
+            {% endfor %}
+    </div></a>
 {% endfor %}
 {% endblock content%}
