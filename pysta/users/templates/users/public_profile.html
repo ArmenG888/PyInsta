@@ -1,0 +1,11 @@
+{% include 'post/base.html' %}
+{% block content %}
+<h1>{{profile.username}}</h1>
+<h1>{{profile.profile.followers}}</h1>
+<h1>{{profile.profile.following}}</h1>
+{% if following == True %}
+    <a href="{% url 'unfollow' username=profile.username %} " style="text-decoration:none;"><btn>Unfollow</btn></a>
+{% else %}
+    <a href="{% url 'follow' username=profile.username %} " style="text-decoration:none;"><btn>Follow</btn></a>
+{% endif %}
+{% endblock content%}

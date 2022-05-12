@@ -11,8 +11,13 @@ def home(request):
         i.comments.set(comments)
         i.likes = i.likess()
         i.save()
+    posts_users_follows = []
+    for i in post.objects.all():
+        if i.user.profile in request.user.profile.following_users.all():
+            posts_users_follows.append(i)
+
     context = {
-        'posts':post.objects.all()
+        'posts':posts_users_follows
     }
 
     return render(request, 'post/home.html', context)
