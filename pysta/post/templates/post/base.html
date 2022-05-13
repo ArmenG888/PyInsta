@@ -20,13 +20,13 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" style="margin-left: 20vw;font-weight: 600;">PyInsta</a>
+      <a class="navbar-brand" href="{% url 'home' %}" style="margin-left: 20vw;font-weight: 600;">PyInsta</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav me-auto">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           <a class="nav-link" href="#">Explore</a>
         </div>
         <form class="d-flex" action="{% url 'user-search' %}" method="get">
@@ -49,12 +49,12 @@
             <img class="nav-bar-pfp"  src="{{user.profile.image.url}}" alt="Avatar">
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">   
-            <li><a class="dropdown-item" href="#">Profile</a></li> 
+            <li><a class="dropdown-item" href="{% url 'public_profile' username=user.username %}">Profile</a></li> 
             <li><a class="dropdown-item" href="#">Settings</a></li> 
             <li><a class="dropdown-item" href="#">New Post</a></li>
             <li><a class="dropdown-item" href="#">Manage Post</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign Out</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign Out</a></li>
           </ul>
         </div>
       </div>

@@ -13,14 +13,14 @@ def home(request):
         i.comments.set(comments)
         i.likes = i.likess()
         i.save()
-    for i in Profile.objects.all():
-        i.followers = i.followerss()
-        i.save()
+
     posts_users_follows = []
     for i in post.objects.all():
         if i.user.profile in request.user.profile.following_users.all():
             posts_users_follows.append(i)
-
+    user = request.user
+    user.profile.followers = len(user.profile.following_users.all())
+    user.save()
     context = {
         'posts':posts_users_follows,
         'users':Profile.objects.all()

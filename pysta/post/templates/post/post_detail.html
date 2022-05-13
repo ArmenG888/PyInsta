@@ -1,10 +1,10 @@
 {% include 'post/base.html' %}
 {% block content %}
-<div>
+<div class="post-detail">
     <p>{{post.user}}</p>
     <p>{{post.date_posted}}</p>
     <img style="width:auto; height:500px;" src="{{post.image.url}}">
-    <a href="{% url 'post-like-detail' id=post.id %}"><h3>❤️ {{post.likes}}</h3></a>
+    <a href="{% url 'post-like-detail' id=post.id %}" style="text-decoration:none" ><h3>❤️ {{post.likes}}</h3></a>
     <h2>{{post.description}}</h2>
 
     <details>
@@ -12,7 +12,7 @@
             {% for comment in comments %}
                 <div class="comment">
                     <p><img class="pfp" src="{{comment.user.profile.image.url}}" alt="Avatar">{{comment.user}} {{ comment.text}}</p>
-                    <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}"><p> ❤️ {{comment.likes}}</p></a>
+                    <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}" style="text-decoration:none" ><p> ❤️ {{comment.likes}}</p></a>
                     <details>
                         <summary>replys {{comment.replys_num}}</summary>
                         <div style="margin:10px;" class="replys">
