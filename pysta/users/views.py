@@ -1,13 +1,21 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from post.models import post
+
 
 def public_profile(request, username):
     user = get_object_or_404(User, username=username)
     following = False
     if request.user.profile in user.profile.follower_users.all():
         following = True
-    return render(request, 'users/public_profile.html', {'profile' : user, 'following': following})
+    context = {
+        'posts':post.objects.filter(user=request.user),
+        'profile' : user, 
+        'following': following
+    }
+
+    return render(request, 'users/public_profile.html', context)
 
 def follow(request, username):
     user = get_object_or_404(User, username=username)

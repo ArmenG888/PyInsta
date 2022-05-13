@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+  </script>
+
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet"
+      type="text/css" />
   <title>PyInsta</title>
 
 </head>
@@ -21,8 +29,20 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
           <a class="nav-link" href="#">Explore</a>
         </div>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" action="{% url 'user-search' %}" method="get">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="tags" value="{{ request.GET.account }}">
+          <script>
+            $(function () {
+                var availableTags = [
+                    {% for user in users %}
+                "{{user.user.username}}",
+                {% endfor %}
+            ];
+                $("#tags").autocomplete({
+                    source: availableTags
+                });
+          } );
+            </script>
         </form>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown" style="margin-right: 20vw;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

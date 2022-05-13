@@ -6,11 +6,15 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    followers = models.IntegerField(default=0)
     following_users = models.ManyToManyField("users.Profile",related_name="users_following", blank=True)
     follower_users = models.ManyToManyField("users.Profile",related_name="users_that_follow", blank=True)
     def __str__(self):
         return self.user.username
-    def followers(self):
+    def followerss(self):
         return len(self.follower_users.all())
     def following(self):
         return len(self.following_users.all())
+
+    class Meta:
+        ordering = ['-followers']

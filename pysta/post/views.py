@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .models import post, comment
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
+from users.models import Profile
 
 @login_required(login_url="/admin")
 def home(request):
@@ -11,13 +13,17 @@ def home(request):
         i.comments.set(comments)
         i.likes = i.likess()
         i.save()
+    for i in Profile.objects.all():
+        i.followers = i.followerss()
+        i.save()
     posts_users_follows = []
     for i in post.objects.all():
         if i.user.profile in request.user.profile.following_users.all():
             posts_users_follows.append(i)
 
     context = {
-        'posts':posts_users_follows
+        'posts':posts_users_follows,
+        'users':Profile.objects.all()
     }
 
     return render(request, 'post/home.html', context)
@@ -53,7 +59,7 @@ def like(request, id):
     else:
         post_x.user_liked.remove(request.user)
 
-    return redirect('home')
+    return HttpResponse('<script>history.back();</script>')
 
 def like_detail(request, id):
     post_x = post.objects.all().filter(id=id)[0]
