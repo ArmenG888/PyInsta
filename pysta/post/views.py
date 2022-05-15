@@ -4,6 +4,8 @@ from .models import post, comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from users.models import Profile
+from .forms import PostForm
+import os
 
 @login_required(login_url="/admin")
 def home(request):
@@ -18,16 +20,25 @@ def home(request):
     for i in post.objects.all():
         if i.user.profile in request.user.profile.following_users.all():
             posts_users_follows.append(i)
-    user = request.user
-    user.profile.followers = len(user.profile.following_users.all())
-    user.save()
+
     context = {
         'posts':posts_users_follows,
-        'users':Profile.objects.all()
     }
 
     return render(request, 'post/home.html', context)
 
+
+def welcome_page(request):
+    return render(request, 'post/welcome_page.html')
+
+@login_required(login_url="/admin")
+def explore(request):
+    context = {
+        'posts':post.objects.all()
+    }
+    return render(request, 'post/explore.html', context)
+
+@login_required(login_url="/admin")
 def post_detail_view(request, id):
     post_x = post.objects.all().filter(id=id)[0]
     post_x.views += 1
@@ -47,6 +58,7 @@ def post_detail_view(request, id):
     }
     return render(request, 'post/post_detail.html', context)
 
+@login_required(login_url="/admin")
 def like(request, id):
     post_x = post.objects.all().filter(id=id)[0]
     already_liked = False 
@@ -61,6 +73,7 @@ def like(request, id):
 
     return HttpResponse('<script>history.back();</script>')
 
+@login_required(login_url="/admin")
 def like_detail(request, id):
     post_x = post.objects.all().filter(id=id)[0]
     already_liked = False 
@@ -74,7 +87,8 @@ def like_detail(request, id):
         post_x.user_liked.remove(request.user)
 
     return redirect('post-detail', id)
-    
+
+@login_required(login_url="/admin")   
 def comment_like(request, id, comment_id):
     comment_x = comment.objects.all().filter(id=comment_id)[0]
     post_x = comment.objects.all().filter(id=id)[0]
@@ -90,3 +104,28 @@ def comment_like(request, id, comment_id):
     
 
     return redirect('post-detail', id) 
+
+@login_required(login_url="/admin")
+def new_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = request.user
+            description = form.cleaned_data['description']
+            image = request.FILES['image']
+            print(image)
+            p = post(user=user, description=description, image=image)
+            p.save()
+            
+            return redirect('post-detail', p.id)
+    else:
+        form = PostForm()
+
+    return render(request, 'post/create_post.html', {'form': form})
+
+@login_required(login_url="/admin")
+def delete_post(request, post_id):
+    post_to_delete = post.objects.all().filter(id=post_id)
+    os.remove(post_to_delete.image.url)
+    post_to_delete.delete()
+    return redirect('home')
