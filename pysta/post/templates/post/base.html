@@ -5,36 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/main.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+  </script>
+
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet"
+      type="text/css" />
   <title>PyInsta</title>
 
 </head>
 
 <body>
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" style="margin-left: 20vw;font-weight: 600;">PyInsta</a>
+      <a class="navbar-brand" href="{% url 'home' %}" >PyInsta</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav me-auto">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-          <a class="nav-link" href="#">Explore</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+          <a class="nav-link" href="{% url 'explore' %}">Explore</a>
         </div>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" action="{% url 'user-search' %}" method="get">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="tags" value="{{ request.GET.account }}">
         </form>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown" style="margin-right: 20vw;" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img class="nav-bar-pfp"  src="{{user.profile.image.url}}" alt="Avatar">
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">   
-            <li><a class="dropdown-item" href="#">Profile</a></li> 
+            <li><a class="dropdown-item" href="{% url 'public_profile' username=user.username %}">Profile</a></li> 
             <li><a class="dropdown-item" href="#">Settings</a></li> 
-            <li><a class="dropdown-item" href="#">New Post</a></li>
+            <li><a class="dropdown-item" href="{% url 'new-post' %}">New Post</a></li>
             <li><a class="dropdown-item" href="#">Manage Post</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign Out</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign Out</a></li>
           </ul>
         </div>
       </div>

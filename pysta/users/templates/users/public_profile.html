@@ -3,9 +3,25 @@
 <h1>{{profile.username}}</h1>
 <h1>{{profile.profile.followers}}</h1>
 <h1>{{profile.profile.following}}</h1>
+
 {% if following == True %}
     <a href="{% url 'unfollow' username=profile.username %} " style="text-decoration:none;"><btn>Unfollow</btn></a>
 {% else %}
     <a href="{% url 'follow' username=profile.username %} " style="text-decoration:none;"><btn>Follow</btn></a>
 {% endif %}
+{% for post in posts %}
+    <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;"><div class="posts">
+        <a style="text-decoration:none;" href="{% url 'public_profile' username=post.user.username %}">
+            <p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
+        </a>
+        
+        <p>{{post.date_posted}}</p>
+        <img class="posts-image" src="{{post.image.url}}">
+        <p>{{post.description}}</p>
+        <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">❤️ {{post.likes}}</a>
+        {% for comment in post.comments.all|slice:"0:3"%}
+            <p class="posts-comments">{{comment.user}} {{comment.text}}</p>
+        {% endfor %}
+    </div></a>
+{% endfor %}
 {% endblock content%}

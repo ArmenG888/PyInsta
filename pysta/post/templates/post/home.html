@@ -1,9 +1,11 @@
 {% include 'post/base.html' %}
 {% block content %}
 {% for post in posts %}
-    <a><div class="posts">
-            <a style="text-decoration:none;" href="{% url 'public_profile' username=post.user.username %}"><p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
-            
+        <div class="posts">
+            <a style="text-decoration:none;" href="{% url 'public_profile' username=post.user.username %}">
+                <p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
+            </a>
+            <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;">
             <p>{{post.date_posted}}</p>
             <img class="posts-image" src="{{post.image.url}}">
             <p>{{post.description}}</p>
@@ -13,4 +15,5 @@
             {% endfor %}
     </div></a>
 {% endfor %}
+
 {% endblock content%}
