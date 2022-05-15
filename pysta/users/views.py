@@ -38,3 +38,8 @@ def unfollow(request, username):
     request_user.profile.following = len(request_user.profile.following_users.all())
     request_user.save()
     return redirect('public_profile', username=username)
+
+def theme(request, id):
+    request.user.theme = theme
+    request.user.save()
+    return redirect(request, "post/home.html")

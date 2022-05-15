@@ -7,11 +7,12 @@ urlpatterns = [
     path('h/', views.home, name="home"),
     path('explore/', views.explore, name="explore"),
     path('p/<id>', views.post_detail_view, name="post-detail"),
+    path('p/<id>/delete/', views.delete_post, name="delete"),
     path('<id>/like/', views.like, name="post-like"),
     path('p/<id>/like/', views.like_detail, name="post-like-detail"),
     path('p/<id>/<comment_id>/like', views.comment_like, name="comment-like"),
     path('search/', views.home, name="user-search"),
-    path('p/new_post/', views.new_post, name="new-post")
+    path('p/new_post/', views.new_post, name="new-post"),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

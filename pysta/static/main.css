@@ -3,6 +3,7 @@
     font-size: 20px;   
     color:black;
     text-decoration: none;
+    
 }
 
 .comment{
@@ -19,6 +20,7 @@
   
 }
 .posts{
+    
     margin-top: 1%;
     margin-left: 25%;
     flex-direction: column;
@@ -55,6 +57,12 @@
     height:auto;
     margin-inline: 20px;
     text-decoration: none;
+}
+.manage-posts{
+    border: 1px solid rgb(187, 187, 187);
+    width: 20%;
+    height: auto;
+    display: inline-block;
 }
 @media only screen and (max-width: 750px)
 {
