@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from post.models import post
-
+from .forms import ThemeForm
 
 def public_profile(request, username):
     user = get_object_or_404(User, username=username)
@@ -37,4 +37,25 @@ def unfollow(request, username):
     request_user.profile.following_users.remove(user.profile)
     request_user.profile.following = len(request_user.profile.following_users.all())
     request_user.save()
+<<<<<<< Updated upstream
     return redirect('public_profile', username=username)
+=======
+    return redirect('public_profile', username=username)
+
+def theme(request):   
+    if request.method == 'POST':
+        form = ThemeForm(request.POST)
+        if form.is_valid():
+            themes =(
+                ("1", "light"),
+                ("2", "dark"),
+            )
+            theme = form.cleaned_data['theme']
+            request.user.profile.theme = themes[int(theme)-1][1]
+            request.user.profile.save()
+            return redirect('theme_change')
+    else:
+        form = ThemeForm()
+
+    return render(request, 'users/change_theme.html', {'form': form})
+>>>>>>> Stashed changes
