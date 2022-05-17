@@ -51,8 +51,6 @@
     margin-inline: 20px;
     text-decoration: none;
 }
-<<<<<<< Updated upstream
-=======
 .manage-posts{
     width: 20%;
     height: auto;
@@ -67,10 +65,7 @@
     margin-left: 50%;
     margin-right: 50%;
 }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 @media only screen and (max-width: 750px)
 {
     *{

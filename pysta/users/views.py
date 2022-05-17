@@ -37,11 +37,7 @@ def unfollow(request, username):
     request_user.profile.following_users.remove(user.profile)
     request_user.profile.following = len(request_user.profile.following_users.all())
     request_user.save()
-<<<<<<< Updated upstream
     return redirect('public_profile', username=username)
-=======
-    return redirect('public_profile', username=username)
-
 def theme(request):   
     if request.method == 'POST':
         form = ThemeForm(request.POST)
@@ -57,9 +53,4 @@ def theme(request):
     else:
         form = ThemeForm()
 
-<<<<<<< Updated upstream
     return render(request, 'users/change_theme.html', {'form': form})
->>>>>>> Stashed changes
-=======
-    return render(request, 'users/change_theme.html', {'form': form})
->>>>>>> Stashed changes

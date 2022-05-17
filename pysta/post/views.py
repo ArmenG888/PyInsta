@@ -128,13 +128,6 @@ def delete_post(request, post_id):
     post_to_delete = post.objects.all().filter(id=post_id)
     os.remove(post_to_delete.image.url)
     post_to_delete.delete()
-<<<<<<< Updated upstream
-    return redirect('home')
-=======
-    messages.success(request, "Successfully deleted your post")
     return redirect('home')
 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
