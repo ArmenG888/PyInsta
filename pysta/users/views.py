@@ -57,5 +57,9 @@ def theme(request):
     else:
         form = ThemeForm()
 
+<<<<<<< Updated upstream
+    return render(request, 'users/change_theme.html', {'form': form})
+>>>>>>> Stashed changes
+=======
     return render(request, 'users/change_theme.html', {'form': form})
 >>>>>>> Stashed changes

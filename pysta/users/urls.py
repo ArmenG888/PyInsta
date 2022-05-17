@@ -9,6 +9,10 @@ urlpatterns = [
     path('<str:username>/follow', views.follow, name="follow"),
     path('<str:username>/unfollow', views.unfollow, name="unfollow"),
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    path('settings/change_theme/', views.theme, name="theme_change")
+>>>>>>> Stashed changes
 =======
     path('settings/change_theme/', views.theme, name="theme_change")
 >>>>>>> Stashed changes

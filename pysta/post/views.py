@@ -134,4 +134,7 @@ def delete_post(request, post_id):
     messages.success(request, "Successfully deleted your post")
     return redirect('home')
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
