@@ -4,7 +4,7 @@
         <div class="posts">
             {% if post.user == user %}
             <div class="dropdown" style="float:right;">
-                <button type="button" class="btn btn-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button type="button" class="btn btn-{{user.profile.theme}}" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="material-symbols-outlined">
                         more_vert
                         </span>
@@ -19,34 +19,34 @@
             <a style="text-decoration:none;" href="{% url 'public_profile' username=post.user.username %}">
                 <p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
             </a>
-            
             <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;">
             <p>{{post.date_posted}}</p>
             <img class="posts-image" src="{{post.image.url}}">
             <p>{{post.description}}</p>
-            <a style="text-decoration:none" href="{% url 'post-like' id=post.id %}">❤️ {{post.likes}}</a>
+            <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">❤️ {{post.likes}}</a>
             {% for comment in post.comments.all|slice:"0:3"%}
                 <p class="posts-comments">{{comment.user}} {{comment.text}}</p>
             {% endfor %}
     </div></a>
-    <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="delete">Delete</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="delete">Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      Are you sure you want to delete this post?
+                  </div>
+                  <div class="modal-footer">
+                      <a href="{% url 'delete' id=post.id %}"><button type="button" class="btn btn-danger">Yes</button></a>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No Take me Back</button>
+                    
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-                Are you sure you want to delete this post?
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'delete' id=post.id %}"><button type="button" class="btn btn-danger">Yes</button></a>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No Take me Back</button>
-              
-            </div>
-          </div>
-        </div>
-      </div>
+    </div></a>
 {% endfor %}
 
 {% endblock content%}

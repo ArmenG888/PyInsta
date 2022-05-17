@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from users.models import Profile
 from .forms import PostForm
-from django.contrib import messages
+import os
 
 @login_required(login_url="/admin")
 def home(request):
@@ -124,9 +124,10 @@ def new_post(request):
     return render(request, 'post/create_post.html', {'form': form})
 
 @login_required(login_url="/admin")
-def delete_post(request, id):
-    post_to_delete = post.objects.all().filter(id=id)[0]
-    post_to_delete.image.delete()
+def delete_post(request, post_id):
+    post_to_delete = post.objects.all().filter(id=post_id)
+    os.remove(post_to_delete.image.url)
     post_to_delete.delete()
-    messages.success(request, "Successfully deleted your post")
     return redirect('home')
+
+
