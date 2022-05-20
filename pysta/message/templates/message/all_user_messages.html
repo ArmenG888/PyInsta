@@ -1,0 +1,13 @@
+{% include 'post/base.html' %}
+{% block content %}
+{% for thread in threads %}
+    <a href="{% url 'direct-messages' id=thread.id %}"><div class="dms">
+        {% if thread.from_user == user %}        
+            <h1><img class="pfp" src="{{thread.to_user.url}}">{{thread.to_user}}</h1>
+        {% elif thread.to_user == user %}
+            <h1><img class="pfp" src="{{thread.to_user.url}}">{{thread.from_user}}</h1>
+        {% endif %}
+    </div>
+{% endfor %}
+
+{% endblock content%}

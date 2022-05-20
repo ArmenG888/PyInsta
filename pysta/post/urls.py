@@ -12,6 +12,7 @@ urlpatterns = [
     path('p/<id>/delete/', views.delete_post, name="delete"),
     path('p/<id>/like/', views.like_detail, name="post-like-detail"),
     path('p/<id>/<comment_id>/like', views.comment_like, name="comment-like"),
+    path('c/<comment_id>/', views.comment_detail, name="comment-detail"),
     path('search/', views.home, name="user-search"),
     path('p/new_post/', views.new_post, name="new-post"),
 

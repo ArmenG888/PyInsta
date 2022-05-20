@@ -15,6 +15,16 @@
     border-radius: 50%;
   
 }
+.profile{
+    display: inline;
+}
+.profile-pfp{
+    width: 5vw;
+    height: 5vw;
+    object-fit: cover;
+    border-radius: 50%;
+  
+}
 .posts{
     margin-top: 1%;
     margin-left: 25%;
@@ -84,7 +94,7 @@
     .nav-bar-pfp{
         width: 10vw;
         height: 10vw;
-    }
+   }
     .navbar-brand{
         margin-left: 0vw;
         font-weight: 600;
