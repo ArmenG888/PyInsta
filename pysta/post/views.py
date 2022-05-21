@@ -2,14 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import post, comment, reply
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from users.models import Profile
+from django.utils import timezone
 from .forms import PostForm, CommentForm, ReplyForm
-import os
-
+import os,datetime
+from message.models import messages, thread
+from django.db.models import Q
 @login_required(login_url="/admin")
 def home(request):
-
+    five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
+    messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
     for i in post.objects.all():
         comments = i.comment_set.all()
         i.comments_number = len(comments)
@@ -24,6 +25,8 @@ def home(request):
 
     context = {
         'posts':posts_users_follows,
+        'new_messages':messages_x,
+        
     }
 
     return render(request, 'post/home.html', context)

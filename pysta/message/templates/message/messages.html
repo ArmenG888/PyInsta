@@ -1,5 +1,6 @@
 {% include 'post/base.html' %}
 {% block content %}
+<div class="messages", id="autoUpdate">
 {% for message in direct_messages %}
     <h1>{{message.from_user}}: {{message.text}}</h1>
 {% endfor %}
@@ -10,4 +11,5 @@
     </div>
     <input class="btn btn-primary" type = "submit" value="Send">
 </form>
+
 {% endblock content%}

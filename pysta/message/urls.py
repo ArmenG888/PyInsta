@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('direct/messages/', views.threads, name="threads"),
-    path('direct/messages/<id>', views.direct_messages, name="direct-messages")
+    path('<username>/chat/', views.new_chat, name="new_chat"),
+    path('direct/messages/<id>', views.direct_messages, name="direct-messages"),
 ]
 
 
