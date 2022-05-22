@@ -9,17 +9,27 @@
 }
 
 .pfp{
-    width: 3vw;
-    height: 3vw;
+    width: 2vw;
+    height: 2vw;
+    object-fit: cover;
+    border-radius: 50%;
+  
+}
+.profile{
+    display: inline;
+}
+.profile-pfp{
+    width: 5vw;
+    height: 5vw;
     object-fit: cover;
     border-radius: 50%;
   
 }
 .posts{
     margin-top: 1%;
-    margin-left: 25%;
+    margin-left: 28%;
     flex-direction: column;
-    width:35%; 
+    width:25%; 
     height:auto;
     margin-bottom: 50px;
     text-decoration: none;
@@ -28,9 +38,25 @@
     width:100%; 
     height:auto;
 }
+.post-user{
+    margin-top: 2.5%;
+    margin-left: 1.5%;
+}
+.like{
+    width: 2vw;
+    height: 2vw;
+}
 .posts-comments{
+    line-height: 0.1em;
     flex-direction: column;
     font-size: 14px;
+}
+.post-content{
+    margin-left: 1.5%;
+}
+.likes{
+    margin-top: 1%;
+    font-size: 18px;
 }
 .nav-bar-pfp
 {
@@ -81,10 +107,14 @@
         height: 10vw;
       
     }
+    .like{
+        width: 5vw;
+        height: 5vw;
+    }
     .nav-bar-pfp{
         width: 10vw;
         height: 10vw;
-    }
+   }
     .navbar-brand{
         margin-left: 0vw;
         font-weight: 600;

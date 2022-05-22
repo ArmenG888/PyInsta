@@ -9,7 +9,7 @@
             <p>{{post.date_posted}}</p>
             <img class="posts-image" src="{{post.image.url}}">
             <p>{{post.description}}</p>
-            <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">❤️ {{post.likes}}</a>
+            <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">❤️ {{post.user_liked.count}}</a>
     </div></a>
 {% endfor %}
 

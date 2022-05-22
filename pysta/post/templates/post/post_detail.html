@@ -4,16 +4,27 @@
     <p>{{post.user}}</p>
     <p>{{post.date_posted}}</p>
     <img style="width:auto; height:500px;" src="{{post.image.url}}">
-    <a href="{% url 'post-like-detail' id=post.id %}" style="text-decoration:none" ><h3>❤️ {{post.likes}}</h3></a>
+    <a href="{% url 'post-like-detail' id=post.id %}" style="text-decoration:none" ><h3>❤️ {{post.user_liked.count}}</h3></a>
     <h2>{{post.description}}</h2>
-
-    <details>
-        <summary>Comments {{post.comments_number}}</summary>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+            <textarea class="form-control" aria-label="With textarea" name="text"></textarea>
+            </div>
+            <input class="btn btn-primary" type = "submit" value="Post">
+        </form>
             {% for comment in comments %}
                 <div class="comment">
                     <p><img class="pfp" src="{{comment.user.profile.image.url}}" alt="Avatar">{{comment.user}} {{ comment.text}}</p>
                     <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}" style="text-decoration:none" ><p> ❤️ {{comment.likes}}</p></a>
                     <details>
+                        <form method="postreply">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                            <textarea class="form-control" aria-label="With textarea" name="relpytext"></textarea>
+                            </div>
+                            <input class="btn btn-primary" type = "submit" value="Post">
+                        </form>
                         <summary>replys {{comment.replys_num}}</summary>
                         <div style="margin:10px;" class="replys">
                             {% for reply in comment.replys.all %} 
@@ -23,6 +34,5 @@
                     </details>     
                 </div>
             {% endfor %}
-    </details>
 </div>
 {% endblock content %}

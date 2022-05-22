@@ -16,17 +16,32 @@
                 </ul>
             </div>
             {% endif %}
-            <a style="text-decoration:none;" href="{% url 'public_profile' username=post.user.username %}">
-                <p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
-            </a>
-            <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;">
-            <p>{{post.date_posted}}</p>
+            <div class="post-user">
+              <a style="text-decoration:none;" href="{% url 'public_profile' username=post.user.username %}">
+                  <p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
+              </a>
+              <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;">
+            </div>
             <img class="posts-image" src="{{post.image.url}}">
-            <p>{{post.description}}</p>
-            <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">❤️ {{post.likes}}</a>
-            {% for comment in post.comments.all|slice:"0:3"%}
-                <p class="posts-comments">{{comment.user}} {{comment.text}}</p>
-            {% endfor %}
+            <div class="post-content">
+              {% if user in post.user_liked.all %}
+              <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
+                <img class="like" src="/static/images/heart-red.png">
+              </a>
+              {% else %}
+              <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
+                <img class="like" src="/static/images/heart-light.png">
+              </a>
+              {% endif %}
+              
+              <p class="likes"><stong class="likes">{{post.user_liked.count}} likes</strong></p>
+              <p class="posts-comments"><strong class="posts-comments">{{post.user}}</strong> {{post.description}}</p>
+              <p class="lead" style="font-size:16px;">View all {{post.comments.count}} comments<p>
+              {% for comment in post.comments.all|slice:"0:3"%}
+                <p class="posts-comments"><strong class="posts-comments">{{comment.user}}</strong> {{comment.text}}</p>
+              {% endfor %}
+              <p class="lead" style="font-size:14px;">{{post.time_ago}}<p>
+              </div>
     </div></a>
             <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
