@@ -11,12 +11,6 @@ from django.db.models import Q
 def home(request):
     five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
     messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
-    for i in post.objects.all():
-        comments = i.comment_set.all()
-        i.comments_number = len(comments)
-        i.comments.set(comments)
-        i.likes = i.likess()
-        i.save()
 
     posts_users_follows = []
     for i in post.objects.all():

@@ -4,7 +4,7 @@
     <p>{{post.user}}</p>
     <p>{{post.date_posted}}</p>
     <img style="width:auto; height:500px;" src="{{post.image.url}}">
-    <a href="{% url 'post-like-detail' id=post.id %}" style="text-decoration:none" ><h3>❤️ {{post.likes}}</h3></a>
+    <a href="{% url 'post-like-detail' id=post.id %}" style="text-decoration:none" ><h3>❤️ {{post.user_liked.count}}</h3></a>
     <h2>{{post.description}}</h2>
         <form method="post">
             {% csrf_token %}
