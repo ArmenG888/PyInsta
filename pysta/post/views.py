@@ -7,20 +7,26 @@ from .forms import PostForm, CommentForm, ReplyForm
 import os,datetime
 from message.models import messages, thread
 from django.db.models import Q
+from json import dumps
+from django.contrib.auth.models import User
+from users.models import Profile
 @login_required(login_url="/admin")
 def home(request):
     five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
     messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
 
     posts_users_follows = []
+    data = {}
     for i in post.objects.all():
         if i.user.profile in request.user.profile.following_users.all():
             posts_users_follows.append(i)
-
+            data[i.id] = i.user_liked.count()
+    
+    data = dumps(data)
     context = {
         'posts':posts_users_follows,
         'new_messages':messages_x,
-        
+        'post_data':data
     }
 
     return render(request, 'post/home.html', context)
@@ -123,7 +129,7 @@ def new_post(request):
             description = form.cleaned_data['description']
             image = request.FILES['image']
             print(image)
-            p = post(user=user, description=description, image=image)
+            p = post(user=user, description=description, file=image)
             p.save()
             
             return redirect('post-detail', p.id)
@@ -133,8 +139,8 @@ def new_post(request):
     return render(request, 'post/create_post.html', {'form': form})
 
 @login_required(login_url="/admin")
-def delete_post(request, post_id):
-    post_to_delete = post.objects.all().filter(id=post_id)
+def delete_post(request, id):
+    post_to_delete = post.objects.all().filter(id=id)
     os.remove(post_to_delete.image.url)
     post_to_delete.delete()
     return redirect('home')
