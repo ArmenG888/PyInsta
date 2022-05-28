@@ -3,7 +3,9 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from post.models import post
 from .forms import SettingsForm
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="/login")
 def public_profile(request, username):
     user = get_object_or_404(User, username=username)
     following = False
@@ -17,6 +19,7 @@ def public_profile(request, username):
 
     return render(request, 'users/public_profile.html', context)
 
+@login_required(login_url="/login")
 def follow(request, username):
     user = get_object_or_404(User, username=username)
     user.profile.follower_users.add(request.user.profile)
@@ -28,6 +31,8 @@ def follow(request, username):
     request_user.profile.following = len(request_user.profile.following_users.all())
     request_user.save()
     return redirect('public_profile', username=username)
+
+@login_required(login_url="/login")
 def unfollow(request, username):
     user = get_object_or_404(User, username=username)
     user.profile.follower_users.remove(request.user.profile)
@@ -38,6 +43,8 @@ def unfollow(request, username):
     request_user.profile.following = len(request_user.profile.following_users.all())
     request_user.save()
     return redirect('public_profile', username=username)
+
+@login_required(login_url="/login")
 def settings(request):   
     if request.method == 'POST':
         form = SettingsForm(request.POST, request.FILES)
