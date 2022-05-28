@@ -40,7 +40,8 @@ def unfollow(request, username):
     return redirect('public_profile', username=username)
 def settings(request):   
     if request.method == 'POST':
-        form = SettingsForm(request.POST)
+        form = SettingsForm(request.POST, request.FILES)
+        print(form.is_valid())
         if form.is_valid():
             themes =(
                 ("1", "light"),
@@ -48,12 +49,21 @@ def settings(request):
             )
             theme = form.cleaned_data['theme']
             username = form.cleaned_data['username']
-            print(username)
-            request.user.profile.theme = themes[int(theme)-1][1]
+            bio = form.cleaned_data['bio']
+            try:
+                image = request.FILES['image']
+                request.user.profile.image = image
+            except Exception:
+                pass
+
+            request.user.profile.theme=themes[int(theme)-1][1]
+            request.user.profile.bio = bio
             request.user.username = username
+            request.user.save()
             request.user.profile.save()
-            return redirect('theme_change')
+            return redirect('settings')
     else:
+        
         form = SettingsForm()
 
-    return render(request, 'users/change_theme.html', {'form': form})
+    return render(request, 'users/settings.html', {'form': form})

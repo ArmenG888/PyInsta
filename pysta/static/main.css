@@ -93,6 +93,10 @@
     *{
         font-size: 16px;
     }
+    .settings{
+        margin-left: 0%;
+        margin-right: 0%;       
+    }
     .posts{
         margin-left: 0%;
         width: 100%;
