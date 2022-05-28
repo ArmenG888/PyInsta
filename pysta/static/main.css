@@ -1,3 +1,4 @@
+
 * {
     font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif ;
     font-size: 20px;   
@@ -82,20 +83,19 @@
     height: auto;
     display: inline-block;
 }
-.change-theme{
+.settings{
     margin-left: 20%;
     margin-right: 20%;
-}
-.change-theme-submit{
-    margin-top: 2%;
-    margin-left: 50%;
-    margin-right: 50%;
 }
 
 @media only screen and (max-width: 750px)
 {
     *{
         font-size: 16px;
+    }
+    .settings{
+        margin-left: 0%;
+        margin-right: 0%;       
     }
     .posts{
         margin-left: 0%;

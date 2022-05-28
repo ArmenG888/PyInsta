@@ -1,6 +1,11 @@
+
 {% include 'post/base.html' %}
+
 {% block content %}
+
+
 {% for post in posts %}
+<script type="text/javascript" src="./likes_count.js"></script>
         <div class="posts">
             {% if post.user == user %}
             <div class="dropdown" style="float:right;">
@@ -22,7 +27,13 @@
               </a>
               <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;">
             </div>
-            <img class="posts-image" src="{{post.image.url}}">
+            {% if post.video_file %}
+              <video class="posts-image" controls>
+                <source src="{{post.file.url}}" type="video/mp4"> </source>
+              </video>
+            {% else %}
+              <img class="posts-image" src="{{post.file.url}}">
+            {% endif %}
             <div class="post-content">
               {% if user in post.user_liked.all %}
               <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
@@ -30,11 +41,12 @@
               </a>
               {% else %}
               <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
-                <img class="like" src="/static/images/heart-light.png">
+                <img class="like" src="/static/images/heart-{{user.profile.theme}}.png">
               </a>
               {% endif %}
               
               <p class="likes"><stong class="likes">{{post.user_liked.count}} likes</strong></p>
+              
               <p class="posts-comments"><strong class="posts-comments">{{post.user}}</strong> {{post.description}}</p>
               <p class="lead" style="font-size:16px;">View all {{post.comments.count}} comments<p>
               {% for comment in post.comments.all|slice:"0:3"%}

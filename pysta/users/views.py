@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from post.models import post
-from .forms import ThemeForm
+from .forms import SettingsForm
 
 def public_profile(request, username):
     user = get_object_or_404(User, username=username)
@@ -38,19 +38,32 @@ def unfollow(request, username):
     request_user.profile.following = len(request_user.profile.following_users.all())
     request_user.save()
     return redirect('public_profile', username=username)
-def theme(request):   
+def settings(request):   
     if request.method == 'POST':
-        form = ThemeForm(request.POST)
+        form = SettingsForm(request.POST, request.FILES)
+        print(form.is_valid())
         if form.is_valid():
             themes =(
                 ("1", "light"),
                 ("2", "dark"),
             )
             theme = form.cleaned_data['theme']
-            request.user.profile.theme = themes[int(theme)-1][1]
-            request.user.profile.save()
-            return redirect('theme_change')
-    else:
-        form = ThemeForm()
+            username = form.cleaned_data['username']
+            bio = form.cleaned_data['bio']
+            try:
+                image = request.FILES['image']
+                request.user.profile.image = image
+            except Exception:
+                pass
 
-    return render(request, 'users/change_theme.html', {'form': form})
+            request.user.profile.theme=themes[int(theme)-1][1]
+            request.user.profile.bio = bio
+            request.user.username = username
+            request.user.save()
+            request.user.profile.save()
+            return redirect('settings')
+    else:
+        
+        form = SettingsForm()
+
+    return render(request, 'users/settings.html', {'form': form})

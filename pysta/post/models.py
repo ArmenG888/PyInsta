@@ -1,10 +1,12 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import math 
 class post(models.Model):
     user = models.ForeignKey(User, related_name="post_author", on_delete=models.CASCADE)
-    image = models.ImageField()
+    file = models.FileField(upload_to="files", default="")
+    video_file = models.BooleanField(default=False)
     description = models.TextField(default="")
     date_posted = models.DateTimeField(default=timezone.now)
     user_liked = models.ManyToManyField(User, related_name="users_liked_post", default="", blank=True)

@@ -10,6 +10,7 @@ class Profile(models.Model):
     following_users = models.ManyToManyField("users.Profile",related_name="users_following", blank=True)
     follower_users = models.ManyToManyField("users.Profile",related_name="users_that_follow", blank=True)
     theme = models.CharField(default="light", max_length=10)
+    bio = models.TextField(default="")
     def __str__(self):
         return self.user.username
     def followerss(self):

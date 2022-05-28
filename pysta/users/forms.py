@@ -5,6 +5,8 @@ themes =(
     ("2", "dark"),
 )
   
-class ThemeForm(forms.Form):
+class SettingsForm(forms.Form):
+    username = forms.CharField()
+    image = forms.ImageField(required=False)
     theme = forms.ChoiceField(choices=themes)
-
+    bio = forms.CharField()

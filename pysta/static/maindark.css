@@ -6,6 +6,9 @@
     border: 1px solid white ;
     background-color: rgba(0, 0, 0, 0.25);
 }
+.modal{
+    background-color: rgba(0, 0, 0, 0.25)!important;
+}
 .posts{   
     border: 1px solid #181b1d;
 }
