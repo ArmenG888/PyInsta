@@ -5,7 +5,7 @@ User = settings.AUTH_USER_MODEL
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.png', upload_to='profile_pics')
     followers = models.IntegerField(default=0)
     following_users = models.ManyToManyField("users.Profile",related_name="users_following", blank=True)
     follower_users = models.ManyToManyField("users.Profile",related_name="users_that_follow", blank=True)
