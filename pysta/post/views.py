@@ -10,23 +10,13 @@ from django.db.models import Q
 from json import dumps
 from django.contrib.auth.models import User
 from users.models import Profile
-@login_required(login_url="/admin")
+@login_required(login_url="/login")
 def home(request):
     five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
     messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
-
-    posts_users_follows = []
-    data = {}
-    for i in post.objects.all():
-        if i.user.profile in request.user.profile.following_users.all():
-            posts_users_follows.append(i)
-            data[i.id] = i.user_liked.count()
-    
-    data = dumps(data)
     context = {
-        'posts':posts_users_follows,
+        'posts':post.objects.all(),
         'new_messages':messages_x,
-        'post_data':data
     }
 
     return render(request, 'post/home.html', context)
@@ -35,14 +25,14 @@ def home(request):
 def welcome_page(request):
     return render(request, 'post/welcome_page.html')
 
-@login_required(login_url="/admin")
+@login_required(login_url="/login")
 def explore(request):
     context = {
         'posts':post.objects.all()
     }
     return render(request, 'post/explore.html', context)
 
-@login_required(login_url="/admin")
+@login_required(login_url="/login")
 def post_detail_view(request, id):
     post_x = post.objects.all().filter(id=id)[0]
     post_x.views += 1
@@ -74,7 +64,7 @@ def post_detail_view(request, id):
     }
     return render(request, 'post/post_detail.html', context)
 
-@login_required(login_url="/admin")
+@login_required(login_url="/login")
 def like(request, id):
     post_x = post.objects.all().filter(id=id)[0]
     already_liked = False 
@@ -89,7 +79,7 @@ def like(request, id):
 
     return HttpResponse('<script>history.back();</script>')
 
-@login_required(login_url="/admin")
+@login_required(login_url="/login")
 def like_detail(request, id):
     post_x = post.objects.all().filter(id=id)[0]
     already_liked = False 
@@ -104,7 +94,7 @@ def like_detail(request, id):
 
     return redirect('post-detail', id)
 
-@login_required(login_url="/admin")   
+@login_required(login_url="/login")   
 def comment_like(request, id, comment_id):
     comment_x = comment.objects.all().filter(id=comment_id)[0]
     already_liked = False 
@@ -120,7 +110,7 @@ def comment_like(request, id, comment_id):
 
     return redirect('post-detail', id) 
 
-@login_required(login_url="/admin")
+@login_required(login_url="/login")
 def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -138,14 +128,14 @@ def new_post(request):
 
     return render(request, 'post/create_post.html', {'form': form})
 
-@login_required(login_url="/admin")
+@login_required(login_url="/login")
 def delete_post(request, id):
     post_to_delete = post.objects.all().filter(id=id)
     os.remove(post_to_delete.image.url)
     post_to_delete.delete()
     return redirect('home')
 
-@login_required(login_url="/admin")
+@login_required(login_url="/login")
 def comment_detail(request, comment_id):
     comment_x = comment.objects.all().filter(id=comment_id)[0]
     if request.method == 'POST':

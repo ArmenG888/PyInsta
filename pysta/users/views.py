@@ -2,42 +2,70 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from post.models import post
-from .forms import SettingsForm
-
+from .forms import SettingsForm, UserRegisterForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from message.models import thread
+from django.db.models import Q
+@login_required(login_url="/login")
 def public_profile(request, username):
     user = get_object_or_404(User, username=username)
     following = False
     if request.user.profile in user.profile.follower_users.all():
         following = True
     context = {
-        'posts':post.objects.filter(user=request.user),
+        'posts':post.objects.filter(user=user),
         'profile' : user, 
         'following': following
     }
 
     return render(request, 'users/public_profile.html', context)
 
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'users/register.html', {'form': form})
+    
+@login_required(login_url="/login")
 def follow(request, username):
     user = get_object_or_404(User, username=username)
     user.profile.follower_users.add(request.user.profile)
     user.profile.followers = len(user.profile.follower_users.all())
     user.save()
-
+    threads = thread.objects.filter(Q(from_user=request.user) | Q(to_user=request.user))
+    if len(threads) == 0:
+        thread.objects.create(from_user=request.user,to_user=user)
     request_user = request.user
     request_user.profile.following_users.add(user.profile)
     request_user.profile.following = len(request_user.profile.following_users.all())
     request_user.save()
     return redirect('public_profile', username=username)
+
+@login_required(login_url="/login")
 def unfollow(request, username):
     user = get_object_or_404(User, username=username)
     user.profile.follower_users.remove(request.user.profile)
     user.profile.followers = len(user.profile.follower_users.all())
     user.save()
+    threads = thread.objects.filter(Q(from_user=request.user) | Q(to_user=request.user))
+    if len(threads) != 0:
+        for i in threads:
+            i.delete()
     request_user = request.user
     request_user.profile.following_users.remove(user.profile)
     request_user.profile.following = len(request_user.profile.following_users.all())
     request_user.save()
     return redirect('public_profile', username=username)
+
+@login_required(login_url="/login")
 def settings(request):   
     if request.method == 'POST':
         form = SettingsForm(request.POST, request.FILES)

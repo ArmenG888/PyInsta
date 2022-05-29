@@ -3,15 +3,20 @@ from .models import thread,messages
 from django.db.models import Q
 from .forms import MessageForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url="/login")
 def threads(request):
     threads = thread.objects.filter(Q(from_user=request.user) | Q(to_user=request.user))
     return render(request, "message/all_user_messages.html", {'threads':threads})
 
-
+@login_required(login_url="/login")
 def new_chat(request, username):
     user = User.objects.filter(username=username)
     threads = thread.objects.filter( Q(from_user=user) | Q(from_user=request.user))[0]
     print(threads)
+
+@login_required(login_url="/login")
 def direct_messages(request,id):
     thread_x = thread.objects.filter(id=id)[0]
     thread_x.read = True

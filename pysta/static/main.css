@@ -87,11 +87,20 @@
     margin-left: 20%;
     margin-right: 20%;
 }
-
+.login{
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 2%;
+}
 @media only screen and (max-width: 750px)
 {
     *{
         font-size: 16px;
+    }
+    .login{
+        margin-left: 1%;
+        margin-right: 1%;
+        margin-top: 1%;
     }
     .settings{
         margin-left: 0%;

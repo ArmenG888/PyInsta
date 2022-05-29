@@ -4,7 +4,7 @@
     <img class="profile-pfp" src="{{profile.profile.image.url}}">
     <h1>{{profile.username}} Followers {{profile.profile.followers}} Following {{profile.profile.following}}</h1>
 </div>
-
+<p>{{profile.profile.bio}}</p>
 {% if following == True %}
     <a href="{% url 'unfollow' username=profile.username %} " style="text-decoration:none;"><button type="button" class="btn btn-{{user.profile.theme}}">Unfollow</button></a>
 {% else %}
@@ -17,7 +17,13 @@
         </a>
         
         <p>{{post.date_posted}}</p>
-        <img class="posts-image" src="{{post.image.url}}">
+        {% if post.video_file %}
+              <video class="posts-image" controls>
+                <source src="{{post.file.url}}" type="video/mp4"> </source>
+              </video>
+            {% else %}
+              <img class="posts-image" src="{{post.file.url}}">
+            {% endif %}
         <p>{{post.description}}</p>
         <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">❤️ {{post.likes}}</a>
         {% for comment in post.comments.all|slice:"0:3"%}

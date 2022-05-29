@@ -3,7 +3,13 @@
 <div class="post-detail">
     <p>{{post.user}}</p>
     <p>{{post.date_posted}}</p>
-    <img style="width:auto; height:500px;" src="{{post.image.url}}">
+    {% if post.video_file == True %}
+    <video style="width:auto; height:500px;" controls>
+        <source src="{{post.file.url}}" type="video/mp4"> </source>
+      </video>
+    {% else%}
+        <img style="width:auto; height:500px;" src="{{post.file.url}}">
+    {% endif %}
     <a href="{% url 'post-like-detail' id=post.id %}" style="text-decoration:none" ><h3>❤️ {{post.user_liked.count}}</h3></a>
     <h2>{{post.description}}</h2>
         <form method="post">
