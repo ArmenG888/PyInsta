@@ -14,19 +14,9 @@ from users.models import Profile
 def home(request):
     five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
     messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
-
-    posts_users_follows = []
-    data = {}
-    for i in post.objects.all():
-        if i.user.profile in request.user.profile.following_users.all():
-            posts_users_follows.append(i)
-            data[i.id] = i.user_liked.count()
-    
-    data = dumps(data)
     context = {
-        'posts':posts_users_follows,
+        'posts':post.objects.all(),
         'new_messages':messages_x,
-        'post_data':data
     }
 
     return render(request, 'post/home.html', context)

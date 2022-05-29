@@ -5,7 +5,8 @@ from post.models import post
 from .forms import SettingsForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from message.models import thread
+from django.db.models import Q
 @login_required(login_url="/login")
 def public_profile(request, username):
     user = get_object_or_404(User, username=username)
@@ -13,7 +14,7 @@ def public_profile(request, username):
     if request.user.profile in user.profile.follower_users.all():
         following = True
     context = {
-        'posts':post.objects.filter(user=request.user),
+        'posts':post.objects.filter(user=user),
         'profile' : user, 
         'following': following
     }
@@ -39,7 +40,9 @@ def follow(request, username):
     user.profile.follower_users.add(request.user.profile)
     user.profile.followers = len(user.profile.follower_users.all())
     user.save()
-
+    threads = thread.objects.filter(Q(from_user=request.user) | Q(to_user=request.user))
+    if len(threads) == 0:
+        thread.objects.create(from_user=request.user,to_user=user)
     request_user = request.user
     request_user.profile.following_users.add(user.profile)
     request_user.profile.following = len(request_user.profile.following_users.all())
@@ -52,6 +55,10 @@ def unfollow(request, username):
     user.profile.follower_users.remove(request.user.profile)
     user.profile.followers = len(user.profile.follower_users.all())
     user.save()
+    threads = thread.objects.filter(Q(from_user=request.user) | Q(to_user=request.user))
+    if len(threads) != 0:
+        for i in threads:
+            i.delete()
     request_user = request.user
     request_user.profile.following_users.remove(user.profile)
     request_user.profile.following = len(request_user.profile.following_users.all())
