@@ -1,11 +1,7 @@
 
 {% include 'post/base.html' %}
-
 {% block content %}
-
-
 {% for post in posts %}
-<script type="text/javascript" src="./likes_count.js"></script>
         <div class="posts">
             {% if post.user == user %}
             <div class="dropdown" style="float:right;">
@@ -28,8 +24,8 @@
               <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;">
             </div>
             {% if post.video_file %}
-              <video class="posts-image" controls>
-                <source src="{{post.file.url}}" type="video/mp4"> </source>
+              <video class="posts-image" controls >
+                <source src="{{post.file.url}}" type="video/mp4" preload="metadata"> </source>
               </video>
             {% else %}
               <img class="posts-image" src="{{post.file.url}}">
@@ -48,7 +44,7 @@
               <p class="likes"><stong class="likes">{{post.user_liked.count}} likes</strong></p>
               
               <p class="posts-comments"><strong class="posts-comments">{{post.user}}</strong> {{post.description}}</p>
-              <p class="lead" style="font-size:16px;">View all {{post.comments.count}} comments<p>
+              <a style="text-decoration:none;" href="{% url 'post-detail' id=post.id%}"><p class="lead" style="font-size:16px;">View all {{post.comments.count}} comments<p></a>
               {% for comment in post.comments.all|slice:"0:3"%}
                 <p class="posts-comments"><strong class="posts-comments">{{comment.user}}</strong> {{comment.text}}</p>
               {% endfor %}
@@ -74,6 +70,6 @@
               </div>
             </div>
     </div></a>
-{% endfor %}
 
+{% endfor %}
 {% endblock content%}

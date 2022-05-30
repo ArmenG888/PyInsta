@@ -24,13 +24,6 @@
                     <p><img class="pfp" src="{{comment.user.profile.image.url}}" alt="Avatar">{{comment.user}} {{ comment.text}}</p>
                     <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}" style="text-decoration:none" ><p> ❤️ {{comment.likes}}</p></a>
                     <details>
-                        <form method="postreply">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                            <textarea class="form-control" aria-label="With textarea" name="relpytext"></textarea>
-                            </div>
-                            <input class="btn btn-primary" type = "submit" value="Post">
-                        </form>
                         <summary>replys {{comment.replys_num}}</summary>
                         <div style="margin:10px;" class="replys">
                             {% for reply in comment.replys.all %} 
