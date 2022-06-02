@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import post, comment, reply
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -21,6 +21,14 @@ def home(request):
 
     return render(request, 'post/home.html', context)
 
+def live_data(request):
+    five_minutes_ago = timezone.now() + datetime.timedelta(seconds=-1)
+    messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
+    print(messages_x)
+    if len(messages_x) != 0:
+        return JsonResponse({'recent_messages':list(messages_x.values())})
+    else:
+        return JsonResponse({'recent_messages':'none'})
 
 def welcome_page(request):
     return render(request, 'post/welcome_page.html')
@@ -131,8 +139,7 @@ def new_post(request):
 
 @login_required(login_url="/login")
 def delete_post(request, id):
-    post_to_delete = post.objects.all().filter(id=id)
-    os.remove(post_to_delete.file.url)
+    post_to_delete = post.objects.all().filter(id=id)[0]
     post_to_delete.delete()
     return redirect('home')
 
