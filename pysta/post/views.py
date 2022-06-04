@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import post, comment, reply
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -21,6 +21,13 @@ def home(request):
 
     return render(request, 'post/home.html', context)
 
+def live_data(request):
+    five_minutes_ago = timezone.now() + datetime.timedelta(seconds=-1)
+    messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
+    if len(messages_x) != 0:
+        return JsonResponse({'recent_messages':list(messages_x.values())})
+    else:
+        return JsonResponse({'recent_messages':'none'})
 
 def welcome_page(request):
     return render(request, 'post/welcome_page.html')
@@ -52,7 +59,10 @@ def post_detail_view(request, id):
         if commentform.is_valid():
             user = request.user
             text = commentform.cleaned_data['text']
-            comment(user=user, post=post_x, text=text).save()
+            cmt = comment(user=user, post=post_x, text=text)
+            cmt.save()
+            post_x.comments.add(cmt)
+            post_x.save()
             return redirect('post-detail', id)
     else:
         commentform = CommentForm()
@@ -76,8 +86,7 @@ def like(request, id):
         post_x.user_liked.add(request.user)
     else:
         post_x.user_liked.remove(request.user)
-
-    return HttpResponse('<script>history.back();</script>')
+    return redirect('home')
 
 @login_required(login_url="/login")
 def like_detail(request, id):
@@ -118,7 +127,6 @@ def new_post(request):
             user = request.user
             description = form.cleaned_data['description']
             image = request.FILES['image']
-            print(image)
             p = post(user=user, description=description, file=image)
             p.save()
             
@@ -130,8 +138,7 @@ def new_post(request):
 
 @login_required(login_url="/login")
 def delete_post(request, id):
-    post_to_delete = post.objects.all().filter(id=id)
-    os.remove(post_to_delete.image.url)
+    post_to_delete = post.objects.all().filter(id=id)[0]
     post_to_delete.delete()
     return redirect('home')
 
@@ -144,7 +151,6 @@ def comment_detail(request, comment_id):
             user = request.user
             text = form.cleaned_data['relpytext']
             comment(user=user,text=text,comment=comment_x).save()
-            #return redirect('post-detail', p.id)
     else:
         form = ReplyForm()
 
