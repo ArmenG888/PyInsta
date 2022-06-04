@@ -7,12 +7,14 @@ Current Features
 <ul>
 <li> Posts, likes, comments, replys
 <li> Basic follow and unfollow system
+<li> Register, Login
+<li> Basic messages
 </ul>
 
 To Do
 
 <ul>
-  <li> Register, Login
+  <li>Proper Messages
   <li> Edit Profile
   <li> Explore Page
 </ul>
