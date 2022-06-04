@@ -24,7 +24,6 @@ def home(request):
 def live_data(request):
     five_minutes_ago = timezone.now() + datetime.timedelta(seconds=-1)
     messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
-    print(messages_x)
     if len(messages_x) != 0:
         return JsonResponse({'recent_messages':list(messages_x.values())})
     else:

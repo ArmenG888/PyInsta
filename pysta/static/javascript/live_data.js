@@ -2,9 +2,12 @@ $(document).ready(function(){
     setInterval(function(){
         $.ajax({
             type:'GET',
-            url : "{% url 'live_data' %}",
+            url : "/ajax/",
             success: function(response){
-                console.log(response);
+              if (response.recent_messages != "none")
+              {
+                console.log(response.recent_messages[0].text);
+              }
             },
             error: function(response)
             {
