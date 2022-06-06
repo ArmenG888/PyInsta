@@ -41,9 +41,22 @@
                 <img class="like" src="/static/images/heart-{{user.profile.theme}}.png">
               </a>
               {% endif %}
-              
-              <p class="likes"><stong class="likes">{{post.user_liked.count}} likes</strong></p>
-              
+              <p id="likes{{post.id}}">{{post.user_liked.count}} likes</p>
+              <script>$(document).ready(function(){
+                  setInterval(function(){
+                      $.ajax({
+                          type:'GET',
+                          url : "{% url 'live_like_data' post_id=post.id %}",
+                          success: function(response){
+                            document.getElementById("likes{{post.id}}").innerText = response.data + " likes";
+                          },
+                          error: function(response)
+                          {
+                              console.log("b");
+                          }
+                      });
+                  },900);
+              });</script>
               <p class="posts-comments"><strong class="posts-comments">{{post.user}}</strong> {{post.description}}</p>
               <a style="text-decoration:none;" href="{% url 'post-detail' id=post.id%}"><p class="lead" style="font-size:16px;">View all {{post.comments.count}} comments<p></a>
               {% for comment in post.comments.all|slice:"0:3"%}

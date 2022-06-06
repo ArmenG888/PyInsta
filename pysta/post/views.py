@@ -21,6 +21,10 @@ def home(request):
 
     return render(request, 'post/home.html', context)
 
+def live_like_data(request,post_id):
+    postx = post.objects.all().filter(id=post_id)[0]
+    likes = postx.user_liked.count()
+    return JsonResponse({'data':likes})
 def live_data(request):
     five_minutes_ago = timezone.now() + datetime.timedelta(seconds=-1)
     messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
@@ -86,7 +90,7 @@ def like(request, id):
         post_x.user_liked.add(request.user)
     else:
         post_x.user_liked.remove(request.user)
-    return redirect('home')
+    return HttpResponse('<script>history.back()</script>')
 
 @login_required(login_url="/login")
 def like_detail(request, id):
