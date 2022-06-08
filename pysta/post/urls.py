@@ -15,7 +15,8 @@ urlpatterns = [
     path('p/<post_id>/<comment_id>/', views.comment_detail, name="comment-detail"),
     path('search/', views.home, name="user-search"),
     path('p/new_post/', views.new_post, name="new-post"),
-    path('ajax/', views.live_data, name="live_data")
+    path('ajax/', views.live_data, name="live_data"),
+    path('ajax/<post_id>', views.live_like_data, name="live_like_data")
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

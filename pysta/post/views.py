@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
+from numpy import blackman
 from .models import post, comment, reply
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -21,6 +22,11 @@ def home(request):
 
     return render(request, 'post/home.html', context)
 
+def live_like_data(request,post_id):
+    postx = post.objects.all().filter(id=post_id)[0]
+    likes = postx.user_liked.count()
+    user_liked = request.user in postx.user_liked.all() 
+    return JsonResponse({'data':likes,'user_liked':user_liked})
 def live_data(request):
     five_minutes_ago = timezone.now() + datetime.timedelta(seconds=-1)
     messages_x = messages.objects.filter(Q(from_user=request.user) | Q(to_user=request.user)).filter(time__gte=five_minutes_ago)
@@ -86,7 +92,7 @@ def like(request, id):
         post_x.user_liked.add(request.user)
     else:
         post_x.user_liked.remove(request.user)
-    return redirect('home')
+    return HttpResponse('<script>history.back()</script>')
 
 @login_required(login_url="/login")
 def like_detail(request, id):
@@ -127,7 +133,10 @@ def new_post(request):
             user = request.user
             description = form.cleaned_data['description']
             image = request.FILES['image']
-            p = post(user=user, description=description, file=image)
+            video = False        
+            if image.name[-3:] == "mov" or image.name[-3:] == "mp4" or image.name[-3:] == "avi":
+                video = True
+            p = post(user=user,video_file=video, description=description, file=image)
             p.save()
             
             return redirect('post-detail', p.id)
