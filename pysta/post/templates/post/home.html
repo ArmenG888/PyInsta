@@ -33,13 +33,14 @@
             {% endif %}
             <div class="post-content">
               {% if user in post.user_liked.all %}
-              <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
-                <img class="like" src="/static/images/heart-red.png">
-              </a>
+                <script src="{% static 'javascript/live_data.js' %}"></script>
+                <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
+                  <img class="like" id="like{{post.id}}" src="/static/images/heart-red.png">
+                </a>
               {% else %}
-              <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
-                <img class="like" src="/static/images/heart-{{user.profile.theme}}.png">
-              </a>
+                <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
+                  <img class="like" id="like{{post.id}}" src="/static/images/heart-{{user.profile.theme}}.png">
+                </a>
               {% endif %}
               <p id="likes{{post.id}}">{{post.user_liked.count}} likes</p>
               <script>$(document).ready(function(){
@@ -49,6 +50,14 @@
                           url : "{% url 'live_like_data' post_id=post.id %}",
                           success: function(response){
                             document.getElementById("likes{{post.id}}").innerText = response.data + " likes";
+                            console.log(response.user_liked);
+                            if (response.user_liked == true)
+                            {
+                              document.getElementById("like{{post.id}}").src = "/static/images/heart-red.png";
+                            }
+                            else{
+                              document.getElementById("like{{post.id}}").src = "/static/images/heart-{{user.profile.theme}}.png";
+                            }
                           },
                           error: function(response)
                           {
