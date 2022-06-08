@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
+from numpy import blackman
 from .models import post, comment, reply
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -132,7 +133,10 @@ def new_post(request):
             user = request.user
             description = form.cleaned_data['description']
             image = request.FILES['image']
-            p = post(user=user, description=description, file=image)
+            video = False        
+            if image.name[-3:] == "mov" or image.name[-3:] == "mp4" or image.name[-3:] == "avi":
+                video = True
+            p = post(user=user,video_file=video, description=description, file=image)
             p.save()
             
             return redirect('post-detail', p.id)
