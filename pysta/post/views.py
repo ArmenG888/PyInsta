@@ -170,6 +170,11 @@ def edit_post(request, id):
     if post_to_edit.user == request.user:
         if request.method == 'POST':
             form = EditForm(request.POST)
+            if form.is_valid():
+                description = form.cleaned_data['description']
+                post_to_edit.description = description
+                post_to_edit.save()
+                return redirect('home')
         else:
             form = EditForm()
 
