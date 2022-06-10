@@ -9,6 +9,3 @@ class CommentForm(forms.Form):
 
 class ReplyForm(forms.Form):
     relpytext = forms.CharField()
-
-class EditForm(forms.Form):
-    description = forms.CharField(max_length=500, required=False, widget=forms.Textarea)

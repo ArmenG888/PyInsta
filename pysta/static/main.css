@@ -92,36 +92,10 @@
     margin-right: 25%;
     margin-top: 2%;
 }
-.edit-post{
-    margin-left:25%;
-    margin-right:25%;
-}
-.bigger-post-image{
-    width:auto;
-    height:500px;
-}
-.new_post{
-    margin-top:1%;
-    margin-left:25%;
-    margin-right:25%;
-}
 @media only screen and (max-width: 750px)
 {
     *{
         font-size: 16px;
-    }
-    .new_post{
-        margin-top:1%;
-        margin-left:0%;
-        margin-right:0%;
-    }
-    .bigger-post-image{
-        width:500px;
-        height:auto;
-    }
-    .edit-post{
-        margin-left:0%;
-        margin-right:0%;
     }
     .login{
         margin-left: 1%;

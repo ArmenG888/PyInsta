@@ -1,15 +1,8 @@
 {% include 'post/base.html' %}
 {% block content %}
-<div class="new_post">
-    <form action=""  method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="image" class="form-label">Image/Video</label>
-        <input type="file" id="image" name="img" accept="image/*">
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" rows="3" id="description"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
+<form action=""  method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
 {% endblock content %}

@@ -10,7 +10,6 @@ urlpatterns = [
     path('p/<id>/delete/', views.delete_post, name="delete"),
     path('<id>/like/', views.like, name="post-like"),
     path('p/<id>/delete/', views.delete_post, name="delete"),
-    path('p/<id>/edit', views.edit_post, name="edit-post"),
     path('p/<id>/like/', views.like_detail, name="post-like-detail"),
     path('p/<id>/<comment_id>/like', views.comment_like, name="comment-like"),
     path('p/<post_id>/<comment_id>/', views.comment_detail, name="comment-detail"),
