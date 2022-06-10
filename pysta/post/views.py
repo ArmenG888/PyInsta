@@ -1,16 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from numpy import blackman
 from .models import post, comment, reply
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .forms import PostForm, CommentForm, ReplyForm
+from .forms import PostForm, CommentForm, ReplyForm, EditForm
 import os,datetime
 from message.models import messages, thread
 from django.db.models import Q
-from json import dumps
 from django.contrib.auth.models import User
-from users.models import Profile
+
 @login_required(login_url="/login")
 def home(request):
     five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
@@ -148,8 +146,9 @@ def new_post(request):
 @login_required(login_url="/login")
 def delete_post(request, id):
     post_to_delete = post.objects.all().filter(id=id)[0]
-    post_to_delete.delete()
-    return redirect('home')
+    if request.user == post_to_delete.user:
+        post_to_delete.delete()
+        return redirect('home')
 
 @login_required(login_url="/login")
 def comment_detail(request, comment_id):
@@ -164,3 +163,21 @@ def comment_detail(request, comment_id):
         form = ReplyForm()
 
     return render(request, 'post/comment_detail.html', {'comment':comment_x,'form': form})
+
+@login_required(login_url="/login")
+def edit_post(request, id):
+    post_to_edit = post.objects.all().filter(id=id)[0]
+    if post_to_edit.user == request.user:
+        if request.method == 'POST':
+            form = EditForm(request.POST)
+            if form.is_valid():
+                description = form.cleaned_data['description']
+                post_to_edit.description = description
+                post_to_edit.save()
+                return redirect('home')
+        else:
+            form = EditForm()
+
+        return render(request, "post/edit_profile.html", {"post_to_edit":post_to_edit,"form":form})
+    else:
+        return redirect("home")

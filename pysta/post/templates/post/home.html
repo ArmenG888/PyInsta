@@ -12,7 +12,7 @@
                         </span>
             </button>
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item active" href="#">Edit</a></li>
+                <li><a class="dropdown-item active" href="{% url 'edit-post' id=post.id %}">Edit</a></li>
                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a></li>
                 
                 </ul>

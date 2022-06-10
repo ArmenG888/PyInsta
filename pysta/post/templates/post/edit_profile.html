@@ -1,0 +1,19 @@
+{% include 'post/base.html' %}
+{% block content %}
+<div class="edit-post">
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {% if post_to_edit.video_file %}
+                <video class="bigger-post-image" controls>
+                    <source src="{{post_to_edit.file.url}}" type="video/mp4" preload="metadata"> </source>
+                </video>
+            {% else %}
+                <img class="bigger-post-image" src="{{post_to_edit.file.url}}">
+            {% endif %}
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3" id="description">{{post_to_edit.description}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock content %}
