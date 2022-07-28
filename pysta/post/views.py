@@ -127,7 +127,9 @@ def comment_like(request, id, comment_id):
 def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
+        print(form.is_valid())
         if form.is_valid():
+            
             user = request.user
             description = form.cleaned_data['description']
             image = request.FILES['image']

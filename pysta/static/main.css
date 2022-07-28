@@ -35,6 +35,15 @@
     margin-bottom: 50px;
     text-decoration: none;
 }
+.profile-posts{
+    margin-top: 1%;
+    margin-left: 28%;
+    flex-direction: column;
+    width:50%; 
+    height:auto;
+    margin-bottom: 50px;
+    text-decoration: none;
+}
 .posts-image{
     width:100%; 
     height:auto;
@@ -90,6 +99,10 @@
 .public-profile-info{
     flex-direction: column;
 }
+.public-profile{
+    margin-left: 30%;
+    margin-right: 30%;
+}
 .login{
     margin-left: 25%;
     margin-right: 25%;
@@ -134,6 +147,10 @@
     .settings{
         margin-left: 0%;
         margin-right: 0%;       
+    }
+    .public-profile{
+        margin-left: 0%;
+        margin-right: 0%;     
     }
     .posts{
         margin-left: 0%;

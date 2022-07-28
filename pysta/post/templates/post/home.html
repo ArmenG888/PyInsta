@@ -4,26 +4,31 @@
 {% block content %}
 {% for post in posts %}
         <div class="posts">
-            {% if post.user == user %}
-            <div class="dropdown" style="float:right;">
-                <button type="button" class="btn btn-{{user.profile.theme}}" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="material-symbols-outlined">
-                        more_vert
-                        </span>
-            </button>
-                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item active" href="{% url 'edit-post' id=post.id %}">Edit</a></li>
-                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a></li>
-                
-                </ul>
+                  {% comment %} {% if post.user == user %}
+                    <div style="float:right;">
+                          <div class="dropdown" style="float:right;">
+                              <button type="button" class="btn btn-{{user.profile.theme}}" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <span class="material-symbols-outlined">
+                                      more_vert
+                                      </span>
+                          </button>
+                              <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
+                              <li><a class="dropdown-item active" href="{% url 'edit-post' id=post.id %}">Edit</a></li>
+                              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a></li>
+                              
+                              </ul>
+                          </div>
+                        </div>
+                   {% endif %} {% endcomment %}
+            <div>    
+              <div class="input-group flex-nowrap" style="margin-left:1%; margin-top:1%;">
+                  <img style="width: 2vw;height: 2vw;object-fit: cover;border-radius: 50%;" src="{{post.user.profile.image.url}}">
+                  <div class="public-profile-info">
+                      <p style="margin-left:5%">{{post.user.username}}</p>  
+                  </div>
+              </div> 
             </div>
-            {% endif %}
-            <div class="post-user">
-              <a style="text-decoration:none;" href="{% url 'public_profile' username=post.user.username %}">
-                  <p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
-              </a>
-              <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;">
-            </div>
+            
             {% if post.video_file %}
               <video class="posts-image" controls >
                 <source src="{{post.file.url}}" type="video/mp4" preload="metadata"> </source>

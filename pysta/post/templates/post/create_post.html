@@ -1,6 +1,8 @@
 {% include 'post/base.html' %}
 {% block content %}
+
 <div class="new_post">
+    <h2>New Post</h2>
     <form action=""  method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="image" class="form-label">Image/Video</label>
