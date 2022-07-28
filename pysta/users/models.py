@@ -4,11 +4,13 @@ User = settings.AUTH_USER_MODEL
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=200, default="")
     likes = models.IntegerField(default=0)
     image = models.ImageField(default='default.png', upload_to='profile_pics')
     followers = models.IntegerField(default=0)
     following_users = models.ManyToManyField("users.Profile",related_name="users_following", blank=True)
     follower_users = models.ManyToManyField("users.Profile",related_name="users_that_follow", blank=True)
+    website = models.CharField(max_length=100, default="")
     theme = models.CharField(default="light", max_length=10)
     bio = models.TextField(default="")
     def __str__(self):

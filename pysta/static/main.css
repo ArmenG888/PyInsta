@@ -87,6 +87,9 @@
     margin-left: 20%;
     margin-right: 20%;
 }
+.public-profile-info{
+    flex-direction: column;
+}
 .login{
     margin-left: 25%;
     margin-right: 25%;

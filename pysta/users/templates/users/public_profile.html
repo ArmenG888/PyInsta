@@ -1,34 +1,25 @@
 {% include 'post/base.html' %}
 {% block content %}
-<div class="profile">
-    <img class="profile-pfp" src="{{profile.profile.image.url}}">
-    <h1>{{profile.username}} Followers {{profile.profile.followers}} Following {{profile.profile.following}}</h1>
-</div>
-<p>{{profile.profile.bio}}</p>
-{% if following == True %}
-    <a href="{% url 'unfollow' username=profile.username %} " style="text-decoration:none;"><button type="button" class="btn btn-{{user.profile.theme}}">Unfollow</button></a>
-{% else %}
-    <a href="{% url 'follow' username=profile.username %} " style="text-decoration:none;"><button type="button" class="btn btn-{{user.profile.theme}}">Follow</button></a>
-{% endif %}
-{% for post in posts %}
-    <a href="{% url 'post-detail' id=post.id %}" style="text-decoration:none;"><div class="posts">
-        <a style="text-decoration:none;" href="{% url 'public_profile' username=post.user.username %}">
-            <p><img class="pfp" src="{{post.user.profile.image.url}}" alt="Avatar">{{post.user}}</p>
-        </a>
+<div style="margin-left: 30%;margin-right: 30%;">
+        <div class="input-group flex-nowrap" style="margin-top:2%">
+            <img style="width: 7vw;height: 7vw;object-fit: cover;border-radius: 50%;" src="{{user.profile.image.url}}">
+            <div class="public-profile-info">
+                <p style="margin-left:5%;margin-top:1%">
+                    <b>{{user.username}}</b> {{user.profile.full_name}}<br>
+                    <b>{{user.profile.follower_users.count}}</b> Followers 
+                    <b>{{user.profile.following_users.count}}</b> Following <br>
+                    <a class="text-decoration-none" href="https://{{user.profile.website}}">{{user.profile.website}}</a>
+                </p>
+                <p style="margin-left:5%;margin-top:1%">{{user.profile.bio|linebreaks}}</p>
+                
+            </div>
+        </div>
         
-        <p>{{post.date_posted}}</p>
-        {% if post.video_file %}
-              <video class="posts-image" controls>
-                <source src="{{post.file.url}}" type="video/mp4"> </source>
-              </video>
-            {% else %}
-              <img class="posts-image" src="{{post.file.url}}">
-            {% endif %}
-        <p>{{post.description}}</p>
-        <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">❤️ {{post.likes}}</a>
-        {% for comment in post.comments.all|slice:"0:3"%}
-            <p class="posts-comments">{{comment.user}} {{comment.text}}</p>
-        {% endfor %}
-    </div></a>
-{% endfor %}
+        <p class="text-start">
+            
+            
+        </p>
+        
+        
+</div>
 {% endblock content%}

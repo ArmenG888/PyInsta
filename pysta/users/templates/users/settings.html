@@ -17,28 +17,35 @@
             <label for="username" class="col-sm-2 col-form-label">Username</label>
             <input type="text" class="form-control" id="username" value="{{user.username}}" name="username" aria-label="Username" aria-describedby="addon-wrapping">
         </div>
+        <div class="input-group flex-nowrap" style="margin-top:2%;">
+            <label for="full_name" class="col-sm-2 col-form-label">Full Name</label>
+            <input type="text" class="form-control" id="full_name" value="{{user.profile.full_name}}" name="full_name" aria-label="Full Name" aria-describedby="addon-wrapping">
+        </div>
         <div class="input-group flex-nowrap"  style="margin-top:2%;">
             <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
             <input type="text" readonly class="form-control" id="staticEmail" value="{{user.email}}" aria-describedby="addon-wrapping">
           </div>
-        
+        <div class="input-group flex-nowrap"  style="margin-top:2%;">
+            <label for="website" class="col-sm-2 col-form-label">Website</label>
+            <input type="text" class="form-control" id="website" value="{{user.profile.website}}" name="website" aria-label="Website" aria-describedby="addon-wrapping">
+        </div>
         <div class="input-group flex-nowrap" style="margin-top:2%;">
-        <label for="theme" class="col-sm-2 col-form-label">Select a Theme</label>
-        <select class="form-select" name="theme" id="theme">
-            {% if user.profile.theme == "dark" %}
-                <option selected value="2" name="theme">Dark</option>
-                <option value="1" name="theme">Light</option>
-            {% else %}
-                <option selected value="1" name="theme">Light</option>
-                <option value="2" name="theme">Dark</option>
-            {% endif %}
-        </select>
-        
+            <label for="theme" class="col-sm-2 col-form-label">Select a Theme</label>
+            <select class="form-select" name="theme" id="theme">
+                {% if user.profile.theme == "dark" %}
+                    <option selected value="2" name="theme">Dark</option>
+                    <option value="1" name="theme">Light</option>
+                {% else %}
+                    <option selected value="1" name="theme">Light</option>
+                    <option value="2" name="theme">Dark</option>
+                {% endif %}
+            </select>   
         </div>
         <div class="input-group flex-nowrap"  style="margin-top:2%;">
             <label for="bio" class="form-label">Bio</label>
             <textarea style="margin-left:1%;"class="form-control" id="bio" rows="3" name="bio">{{user.profile.bio}}</textarea>
         </div>
+        
         <input class="btn btn-primary" style="margin-top:1%;" type = "submit" value="Save">
     </form> 
 </div>
