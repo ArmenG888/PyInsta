@@ -20,15 +20,15 @@
                           </div>
                         </div>
                    {% endif %} {% endcomment %}
-            <div>    
+            <a href="{% url 'public_profile' username=post.user.username %}" class="text-decoration-none"><div>    
               <div class="input-group flex-nowrap" style="margin-left:1%; margin-top:1%;">
                   <img style="width: 2vw;height: 2vw;object-fit: cover;border-radius: 50%;" src="{{post.user.profile.image.url}}">
                   <div class="public-profile-info">
-                      <p style="margin-left:5%">{{post.user.username}}</p>  
-                  </div>
+                      <p style="margin-left:5%" >{{post.user.username}}</p>  
+                  </div>         
               </div> 
-            </div>
-            
+            </div></a>
+            <a href="{% url 'post-detail' post.id %}">
             {% if post.video_file %}
               <video class="posts-image" controls >
                 <source src="{{post.file.url}}" type="video/mp4" preload="metadata"> </source>
@@ -40,37 +40,14 @@
               {% if user in post.user_liked.all %}
                 <script src="{% static 'javascript/live_data.js' %}"></script>
                 <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
-                  <img class="like" id="like{{post.id}}" src="/static/images/heart-red.png">
+                  <img class="like" id="like" src="/static/images/heart-red.png">
                 </a>
               {% else %}
                 <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
-                  <img class="like" id="like{{post.id}}" src="/static/images/heart-{{user.profile.theme}}.png">
+                  <img class="like" id="like" src="/static/images/heart-{{user.profile.theme}}.png">
                 </a>
               {% endif %}
-              <p id="likes{{post.id}}">{{post.user_liked.count}} likes</p>
-              <script>$(document).ready(function(){
-                  setInterval(function(){
-                      $.ajax({
-                          type:'GET',
-                          url : "{% url 'live_like_data' post_id=post.id %}",
-                          success: function(response){
-                            document.getElementById("likes{{post.id}}").innerText = response.data + " likes";
-                            console.log(response.user_liked);
-                            if (response.user_liked == true)
-                            {
-                              document.getElementById("like{{post.id}}").src = "/static/images/heart-red.png";
-                            }
-                            else{
-                              document.getElementById("like{{post.id}}").src = "/static/images/heart-{{user.profile.theme}}.png";
-                            }
-                          },
-                          error: function(response)
-                          {
-                              console.log("b");
-                          }
-                      });
-                  },900);
-              });</script>
+              <p id="likes">{{post.user_liked.count}} likes</p>
               <p class="posts-comments"><strong class="posts-comments">{{post.user}}</strong> {{post.description}}</p>
               <a style="text-decoration:none;" href="{% url 'post-detail' id=post.id%}"><p class="lead" style="font-size:16px;">View all {{post.comments.count}} comments<p></a>
               {% for comment in post.comments.all|slice:"0:3"%}
