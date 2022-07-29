@@ -5,19 +5,20 @@
         <div class="input-group flex-nowrap" style="margin-top:2%">
             <img style="width: 7vw;height: 7vw;object-fit: cover;border-radius: 50%;" src="{{profile.profile.image.url}}">
             <div class="public-profile-info">
-                <p style="margin-left:5%;margin-top:1%">
+                <p style="margin-left:5%;margin-top:1%" class="lh-lg">
                     <b>{{profile.username}}</b> {{profile.profile.full_name}}<br>
                     <b>{{profile.profile.follower_users.count}}</b> Followers 
                     <b>{{profile.profile.following_users.count}}</b> Following <br>
                     <a class="text-decoration-none" href="https://{{profile.profile.website}}">{{profile.profile.website}}</a><br>
                     {% if profile != user %}
-                        {% if user in profile.profile.follower_users.all %}
+
+                        {% if profile in user.profile.following_users.all %}
                             <a href="{% url 'unfollow' profile.username %}"><button type="button" class="btn btn-secondary btn-sm">Unfollow</button></a>
                         {% else %}
                             <a href="{% url 'follow' profile.username %}"><button type="button" class="btn btn-primary btn-sm">Follow</button></a>
                         {% endif %}
                     {% else %}
-                        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                        <a href="{% url 'settings' %}"><button type="button" class="btn btn-primary btn-sm">Edit</button></a>
                     {% endif %}
                     
                 </p>
