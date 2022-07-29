@@ -78,6 +78,8 @@ def settings(request):
             theme = form.cleaned_data['theme']
             username = form.cleaned_data['username']
             bio = form.cleaned_data['bio']
+            website = form.cleaned_data['website']
+            full_name = form.cleaned_data['full_name']
             try:
                 image = request.FILES['image']
                 request.user.profile.image = image
@@ -87,6 +89,8 @@ def settings(request):
             request.user.profile.theme=themes[int(theme)-1][1]
             request.user.profile.bio = bio
             request.user.username = username
+            request.user.profile.website = website
+            request.user.profile.full_name = full_name
             request.user.save()
             request.user.profile.save()
             return redirect('settings')

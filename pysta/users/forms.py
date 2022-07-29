@@ -19,3 +19,5 @@ class SettingsForm(forms.Form):
     image = forms.ImageField(required=False)
     theme = forms.ChoiceField(choices=themes)
     bio = forms.CharField()
+    website = forms.CharField()
+    full_name = forms.CharField()
