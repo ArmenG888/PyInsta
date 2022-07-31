@@ -58,7 +58,7 @@
 }
 .like{
     width: 2vw;
-    height: 2vw;
+    height: auto;
 }
 .posts-comments{
     line-height: 0.1em;
@@ -168,7 +168,7 @@
     }
     .like{
         width: 5vw;
-        height: 5vw;
+        height: auto;
     }
     .nav-bar-pfp{
         width: 10vw;
