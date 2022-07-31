@@ -40,7 +40,7 @@
               {% if user in post.user_liked.all %}
                 <script src="{% static 'javascript/live_data.js' %}"></script>
                 <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
-                  <img class="like" id="like" src="/static/images/heart-red.png">
+                  <img class="like" id="like" src="/static/images/heart-red.png"> 
                 </a>
               {% else %}
                 <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
