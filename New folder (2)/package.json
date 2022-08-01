@@ -1,0 +1,10 @@
+{
+  "name": "figmaexport-pyinsta-page_1-11_home",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "parcel-bundler": "^1.6.1"
+  },
+  "scripts": {},
+  "devDependencies": {}
+}
