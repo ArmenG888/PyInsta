@@ -21,6 +21,8 @@ def public_profile(request, username):
 
     return render(request, 'users/public_profile.html', context)
 
+def new_login(request):
+    return render(request, "users/new_login.html")
 
 def register(request):
     if request.method == 'POST':

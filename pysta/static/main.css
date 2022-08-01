@@ -1,6 +1,6 @@
 
 * {
-    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif ;
+    font-family: 'Nunito';
     font-size: 20px;   
     text-decoration: none;
 }
@@ -81,7 +81,21 @@
 }
 .navbar-brand{
     margin-left: 20vw;
-    font-weight: 600;
+    font-weight: bold;
+}
+.newlogin{
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.newlogininputdiv{
+    width: 50vh;
+}
+.newlogininput{
+    border-radius: 25px;
+    border-color: black;
 }
 .explore-post{
     display: inline-block;
