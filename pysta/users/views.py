@@ -1,12 +1,16 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from post.models import post
 from .forms import SettingsForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from message.models import thread
 from django.db.models import Q
+from django.http import *
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+
 @login_required(login_url="/login")
 def public_profile(request, username):
     user = get_object_or_404(User, username=username)
@@ -20,9 +24,6 @@ def public_profile(request, username):
     }
 
     return render(request, 'users/public_profile.html', context)
-
-def new_login(request):
-    return render(request, "users/new_login.html")
 
 def register(request):
     if request.method == 'POST':
