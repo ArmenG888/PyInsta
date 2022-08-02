@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
     path("logout/", LogoutView.as_view(template_name="users/logout.html"), name="logout"),
+    
     path('', include('post.urls'), name="post-home"),
     path('', include('users.urls'), name="users-home"),
     path('', include('message.urls'), name="messages-home"),

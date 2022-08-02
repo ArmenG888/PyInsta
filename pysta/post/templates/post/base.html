@@ -19,6 +19,7 @@
   {% endif %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
   </script>
+  <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
   </script>
   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet"
@@ -50,9 +51,7 @@
           {% endif %}
         </div>
         {% if user.is_authenticated  %}
-        <a href="{% url 'threads' %}"><span class="material-symbols-outlined" style="margin-right:1vw;">
-          chat
-        </span></a>
+        <a href="{% url 'threads' %}"><span class="material-symbols-outlined" style="margin-right:1vw;">chat</span></a>
         <form class="d-flex" action="{% url 'user-search' %}" method="get">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="tags" value="{{ request.GET.account }}">
         </form>

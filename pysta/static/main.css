@@ -1,6 +1,6 @@
 
 * {
-    font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif ;
+    font-family: 'Nunito';
     font-size: 20px;   
     text-decoration: none;
 }
@@ -81,7 +81,34 @@
 }
 .navbar-brand{
     margin-left: 20vw;
-    font-weight: 600;
+    font-weight: bold;
+}
+.login{
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.register{
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.emailmargin{
+    margin-top:3%
+}
+.newlogininputdiv{
+    width: 50vw;
+}
+.registerbutton{
+    width: 60vw;
+}
+.newlogininput{
+    border-radius: 25px;
+    border-color: black;
 }
 .explore-post{
     display: inline-block;
@@ -106,11 +133,6 @@
 .public-profile{
     margin-left: 30%;
     margin-right: 30%;
-}
-.login{
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-top: 2%;
 }
 .edit-post{
     margin-left:25%;
@@ -160,6 +182,36 @@
         margin-left: 0%;
         width: 100%;
         height: auto;
+    }
+    .login{
+        margin-top: 15%;
+        margin-bottom: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .register{
+        margin-top: 10%;
+        margin-bottom: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .newlogininputdiv{
+        height:100%;
+        width:40vh;
+    }
+    .registerbutton{
+        width:100%;
+    }
+    .emailmargin{
+        margin-top:10%
+    }
+    .newlogininput{
+        border-radius: 25px;
+        border-color: black;
     }
     .pfp{
         width: 10vw;
