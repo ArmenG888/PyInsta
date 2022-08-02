@@ -90,8 +90,11 @@
     justify-content: center;
     flex-direction: column;
 }
+.emailmargin{
+    margin-top:3%
+}
 .newlogininputdiv{
-    width: 50vh;
+    width: 50vw;
 }
 .newlogininput{
     border-radius: 25px;
@@ -126,6 +129,7 @@
     margin-right: 25%;
     margin-top: 2%;
 }
+
 .edit-post{
     margin-left:25%;
     margin-right:25%;
@@ -174,6 +178,25 @@
         margin-left: 0%;
         width: 100%;
         height: auto;
+    }
+    .newlogin{
+        margin-top: 15%;
+        margin-bottom: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .newlogininputdiv{
+        height:100%;
+        width:40vh;
+    }
+    .emailmargin{
+        margin-top:10%
+    }
+    .newlogininput{
+        border-radius: 25px;
+        border-color: black;
     }
     .pfp{
         width: 10vw;
