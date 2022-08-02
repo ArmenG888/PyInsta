@@ -83,8 +83,15 @@
     margin-left: 20vw;
     font-weight: bold;
 }
-.newlogin{
+.login{
     margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.register{
+    margin-top: 5%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,6 +102,9 @@
 }
 .newlogininputdiv{
     width: 50vw;
+}
+.registerbutton{
+    width: 60vw;
 }
 .newlogininput{
     border-radius: 25px;
@@ -124,12 +134,6 @@
     margin-left: 30%;
     margin-right: 30%;
 }
-.login{
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-top: 2%;
-}
-
 .edit-post{
     margin-left:25%;
     margin-right:25%;
@@ -179,8 +183,16 @@
         width: 100%;
         height: auto;
     }
-    .newlogin{
+    .login{
         margin-top: 15%;
+        margin-bottom: 1%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .register{
+        margin-top: 10%;
         margin-bottom: 1%;
         display: flex;
         align-items: center;
@@ -190,6 +202,9 @@
     .newlogininputdiv{
         height:100%;
         width:40vh;
+    }
+    .registerbutton{
+        width:100%;
     }
     .emailmargin{
         margin-top:10%
