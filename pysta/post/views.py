@@ -33,8 +33,9 @@ def live_data(request):
     else:
         return JsonResponse({'recent_messages':'none'})
 
+@login_required(login_url="/login")
 def welcome_page(request):
-    return render(request, 'post/welcome_page.html')
+    return redirect('home')
 
 @login_required(login_url="/login")
 def explore(request):
