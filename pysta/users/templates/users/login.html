@@ -12,26 +12,31 @@
     <title>PyInsta Login</title>
 </head>
 <body>
-    <div class="login">
-        <h1 style="margin-left:25%;margin-right:25%;font-weight: bold;">PyInsta</h1>
-        <form method="POST">   
-            {% csrf_token %}
-            {% if form.errors %}
+    {% if form.errors %}
                 <div class="alert alert-danger" role="alert">
                   Your username and password didn't match. Please try again.
                 </div>
-            {% endif %}
+      {% endif %}
+    <div class="login">
+        <h1 style="margin-left:25%;margin-right:25%;font-weight: bold;">PyInsta</h1>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+        <form method="POST">   
+            {% csrf_token %}
             <div class="mb-3 newlogininputdiv emailmargin">
               <label for="username" class="form-label">Username</label>
-              <input type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name@example.com">
-              
+              <input type="username" class="form-control rounded" id="username" name="username" aria-describedby="emailHelp" placeholder="name@example.com">             
             </div>
             <div class="mb-3 newlogininputdiv">
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control rounded " id="password" name="password" placeholder="min 8 characters">
             </div>
-            <div class="mb-3 form-check newlogininputdiv">
-              
+            <div class="mb-3 form-check newlogininputdiv"> 
               <input type="checkbox" class="form-check-input rounded" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Remember Me</label>
             </div>
