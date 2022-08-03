@@ -50,6 +50,7 @@
               {% endif %}
               
               <p id="likes{{post.id}}">{{post.user_liked.count}} likes</p>
+              
               <p class="posts-comments">{{post.description|linebreaks}}</p>
               <a style="text-decoration:none;" href="{% url 'post-detail' id=post.id%}"><p class="lead" style="font-size:16px;">View all {{post.comments.count}} comments<p></a>
               {% for comment in post.comments.all|slice:"0:3"%}
