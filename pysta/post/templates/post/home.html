@@ -1,32 +1,9 @@
 
 {% include 'post/base.html' %}
 {% load static %}
+<script src="{% static 'javascript/like.js' %}"></script>
 {% block content %}
-<script>
-  function like(id)
-  {
-    $.ajax({
-        type:'GET',
-        url : "/ajax/"+id,
-        success: function(response){
-          //console.log("startsIn{{ race.id }}");
-          document.getElementById("likes"+id).innerText = response['likes'] + " likes";
-          if (response['liked'] == true)
-          {
-            document.getElementById("like"+id).src = "/static/images/heart-red.png";
-          }
-          else{
-            document.getElementById("like"+id).src = "/static/images/heart-light.png";
-          }
-          
-        },
-        error: function(response)
-        {
-            console.log("b");
-        }
-    });
-  }
-  </script>
+
 {% for post in posts %}
         <div class="posts">
                   {% comment %} {% if post.user == user %}

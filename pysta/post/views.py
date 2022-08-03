@@ -195,4 +195,4 @@ def ajax_like(request, post_id):
         pst.user_liked.add(request.user)
         liked = True
     pst.save()
-    return JsonResponse({'liked':liked, 'likes':pst.user_liked.count()})
+    return JsonResponse({'liked':liked, 'likes':pst.user_liked.count(), 'theme':request.user.profile.theme})
