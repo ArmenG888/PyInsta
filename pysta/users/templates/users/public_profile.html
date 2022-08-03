@@ -6,8 +6,9 @@
             <img style="width: 7vw;height: 7vw;object-fit: cover;border-radius: 50%;" src="{{profile.profile.image.url}}">
             <div class="public-profile-info">
                 <p style="margin-left:5%;margin-top:1%" class="lh-lg">
-                    <b>{{profile.username}}</b> {{profile.profile.full_name}}<br>
-                    <b>{{profile.profile.follower_users.count}}</b> Followers 
+                    <b>{{profile.username}}</b><br>
+                    {{profile.profile.full_name}}<br>
+                    <b>{{profile.profile.follower_users.count}}</b> Followers <br>
                     <b>{{profile.profile.following_users.count}}</b> Following <br>
                     <a class="text-decoration-none" href="https://{{profile.profile.website}}">{{profile.profile.website}}</a><br>
                     {% if profile != user %}
