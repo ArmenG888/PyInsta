@@ -2,6 +2,31 @@
 {% include 'post/base.html' %}
 {% load static %}
 {% block content %}
+<script>
+  function like(id)
+  {
+    $.ajax({
+        type:'GET',
+        url : "/ajax/"+id,
+        success: function(response){
+          //console.log("startsIn{{ race.id }}");
+          document.getElementById("likes"+id).innerText = response['likes'] + " likes";
+          if (response['liked'] == true)
+          {
+            document.getElementById("like"+id).src = "/static/images/heart-red.png";
+          }
+          else{
+            document.getElementById("like"+id).src = "/static/images/heart-light.png";
+          }
+          
+        },
+        error: function(response)
+        {
+            console.log("b");
+        }
+    });
+  }
+  </script>
 {% for post in posts %}
         <div class="posts">
                   {% comment %} {% if post.user == user %}
@@ -38,16 +63,16 @@
             {% endif %}
             <div class="post-content">
               {% if user in post.user_liked.all %}
-                <script src="{% static 'javascript/live_data.js' %}"></script>
-                <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
-                  <img class="like" id="like" src="/static/images/heart-red.png"> 
+                <a style="text-decoration:none;cursor: pointer;" onclick="like({{post.id}})">
+                  <img class="like" id="like{{post.id}}" src="/static/images/heart-red.png"> 
                 </a>
               {% else %}
-                <a style="text-decoration:none;" href="{% url 'post-like' id=post.id %}">
-                  <img class="like" id="like" src="/static/images/heart-{{user.profile.theme}}.png">
+                <a style="text-decoration:none;cursor: pointer;" onclick="like({{post.id}})">
+                  <img class="like" id="like{{post.id}}" src="/static/images/heart-{{user.profile.theme}}.png">
                 </a>
               {% endif %}
-              <p id="likes">{{post.user_liked.count}} likes</p>
+              
+              <p id="likes{{post.id}}">{{post.user_liked.count}} likes</p>
               <p class="posts-comments"><strong class="posts-comments">{{post.user}}</strong> {{post.description}}</p>
               <a style="text-decoration:none;" href="{% url 'post-detail' id=post.id%}"><p class="lead" style="font-size:16px;">View all {{post.comments.count}} comments<p></a>
               {% for comment in post.comments.all|slice:"0:3"%}
