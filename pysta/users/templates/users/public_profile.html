@@ -10,7 +10,7 @@
                   
                     <b>{{profile.username}}</b>
                     {% if profile != user %}
-                      {% if profile in user.profile.following_users.all %}
+                      {% if profile.profile in user.profile.following_users.all %}
                           <a href="{% url 'unfollow' profile.username %}"><button type="button" style="height:50%;" class="btn btn-secondary btn-sm">Unfollow</button></a>
                       {% else %}
                           <a href="{% url 'follow' profile.username %}"><button type="button" style="height:50%;" class="btn btn-primary btn-sm">Follow</button></a>
@@ -25,6 +25,7 @@
                     
                     
                 </p>
+                
                 <p>
                   {{profile.profile.bio|linebreaks}}
                 </p>
