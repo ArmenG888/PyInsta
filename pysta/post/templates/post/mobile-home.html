@@ -4,8 +4,7 @@
 {% block content %}
     {% for post in posts %}
         <div class="post-mobile">
-            <div style="margin-left:1%;margin-right:1%;">
-            <div class="post-profile-mobile">
+            <div class="post-profile-mobile" style="margin-left:1%;">
                 <img class="post-pfp-mobile" src="{{post.user.profile.image.url}}">
                 <p style="float:left;margin-left:1%;margin-top:2%">{{post.user}}</p>
             </div>
@@ -20,18 +19,17 @@
                         <img class="like" id="like{{post.id}}" src="/static/images/heart-{{user.profile.theme}}.png">
                     </a>
                 {% endif %}
-                <p id="likes{{post.id}}">{{post.user_liked.count}} likes</p>
+                <p id="likes{{post.id}}" style="margin-left:1%;">{{post.user_liked.count}} likes</p>
             </div>
-            <p><b>{{post.user}}</b> {{post.description_first_line}} <small style="color:grey;">more...</small></p>
-            <p>View all {{post.comments.all.count}} comments</p>
+            <p style="margin-left:1%;"><b>{{post.user}}</b> {{post.description_first_line}} <small style="color:grey;">more...</small></p>
+            <p style="margin-left:1%;">View all {{post.comments.all.count}} comments</p>
             {% for comment in post.comments.all|slice:"0:3"%}
-                <p style="font-size:14px;"><b style="font-size:14px;">{{comment.user}}</b> {{comment.text}}</p>
+                <p style="font-size:14px;margin-left:1%;"><b style="font-size:14px;">{{comment.user}}</b> {{comment.text}}</p>
             {% endfor %}
             <div class="input-group flex-nowrap" style="border: 1px solid rgba(88, 88, 88,0.5);border-radius: 5px;">
-                <input style="border: 0;" class="form-control" placeholder="Add a comment...">
+                <input style="border: 0;margin-left:1%;" class="form-control" placeholder="Add a comment...">
                 <a href="#" class="text-decoration-none" style="margin-top:1%;margin-left:1%;margin-right:1%">post</a>
             </div>
-        </div>
         </div>
     {% endfor %}
 {% endblock content %}
