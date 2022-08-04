@@ -33,8 +33,9 @@ def live_data(request):
     else:
         return JsonResponse({'recent_messages':'none'})
 
+@login_required(login_url="/login")
 def welcome_page(request):
-    return render(request, 'post/welcome_page.html')
+    return redirect('home')
 
 @login_required(login_url="/login")
 def explore(request):
@@ -183,3 +184,15 @@ def edit_post(request, id):
         return render(request, "post/edit_profile.html", {"post_to_edit":post_to_edit,"form":form})
     else:
         return redirect("home")
+
+
+def ajax_like(request, post_id):
+    pst = post.objects.get(id=post_id)
+    if request.user in pst.user_liked.all():
+        pst.user_liked.remove(request.user)
+        liked = False
+    else:
+        pst.user_liked.add(request.user)
+        liked = True
+    pst.save()
+    return JsonResponse({'liked':liked, 'likes':pst.user_liked.count(), 'theme':request.user.profile.theme})

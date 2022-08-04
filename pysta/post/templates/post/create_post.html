@@ -6,12 +6,12 @@
     <form action=""  method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="image" class="form-label">Image/Video</label>
-        <input type="file" id="image" name="img" accept="image/*">
+        <input type="file" id="image" name="image" accept="image/*">
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" rows="3" id="description"></textarea>
+            <textarea class="form-control" rows="3" id="description" name="description"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Post</button>
     </form>
 </div>
 {% endblock content %}

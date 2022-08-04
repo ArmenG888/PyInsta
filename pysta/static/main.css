@@ -31,11 +31,12 @@
     margin-left: 25%;
     margin-right: 25%;
     flex-direction: column;
-    width:50%; 
+    width:30%; 
     height:auto;
     margin-bottom: 50px;
     text-decoration: none;
     border-radius: 10px;
+    border-color: coral;
 }
 .profile-posts{
     margin-top: 1%;
