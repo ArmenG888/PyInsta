@@ -17,8 +17,11 @@ def home(request):
         'posts':post.objects.all(),
         'new_messages':messages_x,
     }
-
-    return render(request, 'post/home.html', context)
+    user_agent = request.META['HTTP_USER_AGENT']
+    if 'Mobile' not in user_agent:
+        return render(request, 'post/mobile-home.html', context)
+    else:
+        return render(request, 'post/home.html', context)
 
 def live_like_data(request,post_id):
     postx = post.objects.all().filter(id=post_id)[0]
@@ -40,7 +43,7 @@ def welcome_page(request):
 @login_required(login_url="/login")
 def explore(request):
     context = {
-        'posts':post.objects.all()
+        'posts': post.objects.order_by('views','-date_posted')
     }
     return render(request, 'post/explore.html', context)
 
@@ -196,3 +199,4 @@ def ajax_like(request, post_id):
         liked = True
     pst.save()
     return JsonResponse({'liked':liked, 'likes':pst.user_liked.count(), 'theme':request.user.profile.theme})
+

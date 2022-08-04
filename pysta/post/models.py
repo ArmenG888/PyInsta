@@ -12,6 +12,8 @@ class post(models.Model):
     user_liked = models.ManyToManyField(User, related_name="users_liked_post", default="", blank=True)
     views = models.IntegerField(default=0)
     comments = models.ManyToManyField("post.comment", related_name="post_comments", blank=True)
+    def likes_count(self):
+        return self.user_liked.count()
     def description_first_line(self):
         return self.description.split("\n")[0]
     def time_ago(self):

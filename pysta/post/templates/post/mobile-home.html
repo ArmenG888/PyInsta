@@ -1,0 +1,7 @@
+{% include 'post/base-mobile.html' %}
+{% load static %}
+<script src="{% static 'javascript/like.js' %}"></script>
+{% block content %}
+{% for post in posts %}
+{% endfor %}
+{% endblock content %}

@@ -25,9 +25,11 @@
             <a href="{% url 'public_profile' username=post.user.username %}" class="text-decoration-none"><div>    
               <div class="input-group flex-nowrap" style="margin-left:1.5%; margin-top:1.5%;">
                   <img style="width: 2vw;height: 2vw;object-fit: cover;border-radius: 50%;" src="{{post.user.profile.image.url}}">
+ 
                   <div class="public-profile-info">
-                      <p style="margin-left:15%" >{{post.user.username}}</p>  
-                  </div>         
+                      <p style="margin-left:15%" >{{post.user.username}} </p>  
+                  </div>    
+                   
               </div> 
             </div></a>
             <a href="{% url 'post-detail' post.id %}">

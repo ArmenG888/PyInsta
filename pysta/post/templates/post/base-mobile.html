@@ -1,0 +1,83 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="{{user.profile.theme}}">
+  <link rel="stylesheet" href="/static/main.css">
+  {% if user.is_authenticated  %}
+    <link rel="stylesheet" href="/static/main{{user.profile.theme}}.css">
+    {% if user.profile.theme == "dark" %}
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-night.min.css" rel="stylesheet">
+    {% else %}
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    {% endif %}
+  {% else%}
+    <link rel="stylesheet" href="/static/mainlight.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  {% endif %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+  </script>
+  <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+  </script>
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet"
+      type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  
+  <title>PyInsta</title>
+
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+  <nav class="navbar navbar-expand-lg navbar-{{user.profile.theme}} bg-{{user.profile.theme}}">
+  {% else %}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  {% endif %}
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}" >PyInsta</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav me-auto">
+          {% if user.is_authenticated  %}
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+            {% else %}
+            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login</a>
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
+          {% endif %}
+        </div>
+        {% if user.is_authenticated  %}
+        
+        
+        <div class="navbar-nav me-auto">
+            <a class="nav-link active" href="{% url 'public_profile' username=user.username %}">Profile</a>
+            <a class="nav-link active" href="{% url 'threads' %}">Chat</a>
+            <a class="nav-link active" href="{% url 'new-post' %}">New Post</a>
+            <a class="nav-link active" href="{% url 'settings' %}">Settings</a>  
+            <a class="nav-link active" href="{% url 'logout' %}">Sign Out</a>   
+        </div>
+        <form class="d-flex" action="{% url 'user-search' %}" method="get">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="tags" value="{{ request.GET.account }}">
+          </form>
+        {% endif %}
+        </div>
+      </div>
+  </nav>
+  <script src="{% static 'javascript/live_data.js' %}">
+  </script>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

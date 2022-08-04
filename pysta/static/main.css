@@ -35,8 +35,7 @@
     height:auto;
     margin-bottom: 50px;
     text-decoration: none;
-    border-radius: 10px;
-    border-color: coral;
+    
 }
 .profile-posts{
     margin-top: 1%;
@@ -53,9 +52,10 @@
     width:100%; 
     height:auto;
 }
-.post-user{
-    margin-top: 2.5%;
-    margin-left: 1.5%;
+.post-profile{
+    margin-left:1.5%; 
+    margin-top:1.5%;
+    flex-direction: row;
 }
 .like{
     width: 2vw;
@@ -80,7 +80,7 @@
     object-fit: cover;
     border-radius: 50%;
 }
-.navbar-brand{
+.title{
     margin-left: 20vw;
     font-weight: bold;
 }
@@ -153,6 +153,13 @@
     *{
         font-size: 16px;
     }
+    .pfp{
+        width: 5vw;
+        height: 5vw;
+        object-fit: cover;
+        border-radius: 50%;
+      
+    }
     .new_post{
         margin-top:1%;
         margin-left:0%;
@@ -214,13 +221,9 @@
         border-radius: 25px;
         border-color: black;
     }
-    .pfp{
-        width: 10vw;
-        height: 10vw;
-      
-    }
+
     .like{
-        width: 5vw;
+        width: 10vw;
         height: auto;
     }
     .nav-bar-pfp{
