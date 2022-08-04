@@ -18,7 +18,7 @@ def home(request):
         'new_messages':messages_x,
     }
     user_agent = request.META['HTTP_USER_AGENT']
-    if 'Mobile' not in user_agent:
+    if 'Mobile' in user_agent:
         return render(request, 'post/mobile-home.html', context)
     else:
         return render(request, 'post/home.html', context)

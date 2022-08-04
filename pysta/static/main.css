@@ -148,6 +148,33 @@
     margin-left:25%;
     margin-right:25%;
 }
+
+
+.post-mobile{
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-top:1px solid rgba(88, 88, 88,0.5);
+
+}
+.post-image-mobile{
+    width: 100%;
+    height: auto;
+}
+.post-pfp-mobile{
+    height: 10vw;
+    width: 10vw;
+    object-fit: cover;
+    border-radius: 50%;
+    float:left;
+    margin-top:1%;
+}
+.post-likes-section{
+    margin-top:1%;
+}
+
 @media only screen and (max-width: 750px)
 {
     *{
