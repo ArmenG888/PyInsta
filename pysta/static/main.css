@@ -14,7 +14,6 @@
     height: 2vw;
     object-fit: cover;
     border-radius: 50%;
-  
 }
 .profile{
     display: inline;
@@ -24,51 +23,13 @@
     height: 5vw;
     object-fit: cover;
     border-radius: 50%;
-  
 }
-.posts{
-    margin-top: 1%;
-    margin-left: 25%;
-    margin-right: 25%;
-    flex-direction: column;
-    width:30%; 
-    height:auto;
-    margin-bottom: 50px;
-    text-decoration: none;
-    
-}
-.profile-posts{
-    margin-top: 1%;
-    margin-left: 30%;
-    margin-right: 30%;
-    flex-direction: column;
-    width:50%; 
-    height:auto;
-    margin-bottom: 50px;
-    text-decoration: none;
-    border-radius: 10px;
-}
-.posts-image{
-    width:100%; 
-    height:auto;
-}
-.post-profile{
-    margin-left:1.5%; 
-    margin-top:1.5%;
-    flex-direction: row;
-}
+
 .like{
     width: 2vw;
     height: auto;
 }
-.posts-comments{
-    line-height: 0.1em;
-    flex-direction: column;
-    font-size: 14px;
-}
-.post-content{
-    margin-left: 1.5%;
-}
+
 .likes{
     margin-top: 1%;
     font-size: 18px;
@@ -148,8 +109,6 @@
     margin-left:25%;
     margin-right:25%;
 }
-
-
 .post-mobile{
     width: 100%;
     height: auto;
@@ -157,7 +116,6 @@
     margin-top: 5%;
     margin-bottom: 5%;
     border-top:1px solid rgba(88, 88, 88,0.5);
-
 }
 .post-image-mobile{
     width: 100%;
@@ -174,7 +132,29 @@
 .post-likes-section{
     margin-top:1%;
 }
+.post{
+    width: 35%;
+    height: auto;
+    flex-direction: column;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 25%;
+    margin-right: 25%;
+    border-top:1px solid rgba(88, 88, 88,0.5);
 
+}
+.post-image{
+    width: 100%;
+    height: auto;
+}
+.post-pfp{
+    height: 2vw;
+    width: 2vw;
+    object-fit: cover;
+    border-radius: 50%;
+    float:left;
+    margin-top:1%;
+}
 @media only screen and (max-width: 750px)
 {
     *{
