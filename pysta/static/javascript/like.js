@@ -2,7 +2,7 @@ function like(id)
   {
     $.ajax({
         type:'GET',
-        url : "/ajax/"+id,
+        url : "/ajax/like/"+id,
         success: function(response){
           //console.log("startsIn{{ race.id }}");
           document.getElementById("likes"+id).innerText = response['likes'] + " likes";

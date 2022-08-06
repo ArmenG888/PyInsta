@@ -4,11 +4,56 @@
     font-size: 20px;   
     text-decoration: none;
 }
+.post-mobile{
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-top:1px solid rgba(88, 88, 88,0.5);
+}
+.post-image-mobile{
+    width: 100%;
+    height: auto;
+}
+.post-pfp-mobile{
+    height: 10vw;
+    width: 10vw;
+    object-fit: cover;
+    border-radius: 50%;
+    float:left;
+    margin-top:1%;
+}
+.post-likes-section{
+    margin-top:1%;
+}
+.post{
+    width: 35%;
+    height: auto;
+    flex-direction: column;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 25%;
+    margin-right: 25%;
+    border-top:1px solid rgba(88, 88, 88,0.5);
+
+}
+.post-image{
+    width: 100%;
+    height: auto;
+}
+.post-pfp{
+    height: 2vw;
+    width: 2vw;
+    object-fit: cover;
+    border-radius: 50%;
+    float:left;
+    margin-top:1%;
+}
 .comment{
     margin:20px;
     padding: 5px;
 }
-
 .pfp{
     width: 2vw;
     height: 2vw;
@@ -24,7 +69,10 @@
     object-fit: cover;
     border-radius: 50%;
 }
-
+.profile-posts{
+    margin-left: 10%;
+    margin-right: 10%;
+}
 .like{
     width: 2vw;
     height: auto;
@@ -109,51 +157,29 @@
     margin-left:25%;
     margin-right:25%;
 }
-.post-mobile{
+.post-detail{
+    margin-left:25%;
+    margin-right:25%;
+    width: auto;
+    
+}
+.post-detail-content{
+    border: solid 1px grey;
+}
+.post-detail-image{
     width: 100%;
     height: auto;
-    flex-direction: column;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    border-top:1px solid rgba(88, 88, 88,0.5);
 }
-.post-image-mobile{
-    width: 100%;
-    height: auto;
+.post-detail-profile-section{
+    margin-top:1%;
+    margin-left:1%;
 }
-.post-pfp-mobile{
-    height: 10vw;
-    width: 10vw;
+.comment-pfp{
+    width: 1.5vw;
+    height: 1.5vw;
     object-fit: cover;
     border-radius: 50%;
     float:left;
-    margin-top:1%;
-}
-.post-likes-section{
-    margin-top:1%;
-}
-.post{
-    width: 35%;
-    height: auto;
-    flex-direction: column;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: 25%;
-    margin-right: 25%;
-    border-top:1px solid rgba(88, 88, 88,0.5);
-
-}
-.post-image{
-    width: 100%;
-    height: auto;
-}
-.post-pfp{
-    height: 2vw;
-    width: 2vw;
-    object-fit: cover;
-    border-radius: 50%;
-    float:left;
-    margin-top:1%;
 }
 @media only screen and (max-width: 750px)
 {

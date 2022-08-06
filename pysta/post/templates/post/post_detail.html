@@ -1,37 +1,23 @@
 {% include 'post/base.html' %}
-{% block content %}
 <div class="post-detail">
-    <p>{{post.user}}</p>
-    <p>{{post.date_posted}}</p>
-    {% if post.video_file == True %}
-    <video style="width:auto; height:500px;" controls>
-        <source src="{{post.file.url}}" type="video/mp4"> </source>
-      </video>
-    {% else%}
-        <img style="width:auto; height:500px;" src="{{post.file.url}}">
-    {% endif %}
-    <a href="{% url 'post-like-detail' id=post.id %}" style="text-decoration:none" ><h3>❤️ {{post.user_liked.count}}</h3></a>
-    <h2>{{post.description}}</h2>
-        <form method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-            <textarea class="form-control" aria-label="With textarea" name="text"></textarea>
-            </div>
-            <input class="btn btn-primary" type = "submit" value="Post">
-        </form>
-            {% for comment in comments %}
-                <div class="comment">
-                    <p><img class="pfp" src="{{comment.user.profile.image.url}}" alt="Avatar">{{comment.user}} {{ comment.text}}</p>
-                    <a href="{% url 'comment-like' id=post.id comment_id=comment.id%}" style="text-decoration:none" ><p> ❤️ {{comment.likes}}</p></a>
-                    <details>
-                        <summary>replys {{comment.replys_num}}</summary>
-                        <div style="margin:10px;" class="replys">
-                            {% for reply in comment.replys.all %} 
-                                <p><img class="pfp" src="{{reply.user.profile.image.url}}"> {{reply.user}} {{reply.text}}</p>
-                            {% endfor %}
-                        </div>
-                    </details>     
-                </div>
-            {% endfor %}
+    <div class="post-detail-content">
+        <div class="post-detail-profile-section">
+            <img class="pfp" style="float:left;" src="{{post.user.profile.image.url}}">
+            <p style="float:left;margin-top:0.25%; margin-left:1%;">{{post.user.username}}</h1>
+        </div>
+        <img class="post-detail-image" src="{{post.file.url}}">
+        <p>{{post.description}}</p>
+    </div>
+    <div class="mb-3">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary">Primary</button>
+    {% for comment in post.comments.all %}
+        <div>
+            <img class="comment-pfp" src="{{comment.user.profile.image.url}}">
+            <p style="margin-left:1%">{{comment.user}}</p>
+        </div>
+        <p>{{comment.text}}</p>
+         
+    {% endfor %}
 </div>
-{% endblock content %}

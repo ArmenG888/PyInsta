@@ -16,6 +16,7 @@ def home(request):
     context = {
         'posts':post.objects.all(),
         'new_messages':messages_x,
+        'form':CommentForm(),
     }
     user_agent = request.META['HTTP_USER_AGENT']
     if 'Mobile' in user_agent:
@@ -199,4 +200,6 @@ def ajax_like(request, post_id):
         liked = True
     pst.save()
     return JsonResponse({'liked':liked, 'likes':pst.user_liked.count(), 'theme':request.user.profile.theme})
+
+
 
