@@ -24,6 +24,19 @@ def home(request):
     else:
         return render(request, 'post/home.html', context)
 
+@login_required(login_url="/login")
+def comment(request, pk):
+    if request.method == "POST":
+        commentform = CommentForm(request.POST)
+        if commentform.is_valid():
+            post_x = post.objects.get(id=pk)
+            comment_x = comment.objects.create(post=post_x, 
+                                   user=request.user,
+                                   text=commentform.cleaned_data['text'])
+            post_x.comments.add(comment_x)
+            post_x.save()
+
+    return redirect('home')
 def live_like_data(request,post_id):
     postx = post.objects.all().filter(id=post_id)[0]
     likes = postx.user_liked.count()

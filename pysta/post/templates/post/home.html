@@ -3,12 +3,13 @@
 <script src="{% static 'javascript/like.js' %}"></script>
 {% block content %}
     {% for post in posts %}
+        
         <div class="post">
-            <div class="post-profile" style="margin-left:1%;">
+            <a href="{% url 'public_profile' post.user.username %}"><div class="post-profile" style="margin-left:1%;">
                 <img class="post-pfp" src="{{post.user.profile.image.url}}">
                 <p style="float:left;margin-left:1%;margin-top:2%">{{post.user}}</p>
-            </div>
-            <img class="post-image" src="{{post.file.url}}">
+            </div></a>
+            <a href="{% url 'post-detail' post.id%}"><img class="post-image" src="{{post.file.url}}">
             <div class="post-likes-section">
                 {% if user in post.user_liked.all %}
                     <a style="text-decoration:none;cursor: pointer;" onclick="like({{post.id}})">
@@ -26,10 +27,14 @@
             {% for comment in post.comments.all|slice:"0:3"%}
                 <p style="font-size:14px;margin-left:1%;"><b style="font-size:14px;">{{comment.user}}</b> {{comment.text}}</p>
             {% endfor %}
-            <div class="input-group flex-nowrap" style="border: 1px solid rgba(88, 88, 88,0.5);border-radius: 5px;">
-                <input style="border: 0;margin-left:1%;" class="form-control" placeholder="Add a comment...">
-                <a href="#" class="text-decoration-none" style="margin-top:1%;margin-left:1%;margin-right:1%">post</a>
-            </div>
+            <form action="{% url 'comment' post.id %}">
+                <div class="input-group flex-nowrap" style="border: 1px solid rgba(88, 88, 88,0.5);border-radius: 5px;">
+                    {% csrf_token %}
+                    <input style="border: 0;margin-left:1%;" name="text" id="text" class="form-control" placeholder="Add a comment...">
+                    <button type="submit" class="btn btn-primary">post</button>
+                </div>
+            </form>
         </div>
+       </a>
     {% endfor %}
 {% endblock content %}
