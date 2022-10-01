@@ -1,4 +1,6 @@
+{% load static %}
 {% include 'post/base.html' %}
+<script src="{% static 'javascript/reply.js' %}"></script>
 <div class="post-detail">
     <div class="post-detail-content">
         <div class="post-detail-profile-section">
@@ -21,16 +23,18 @@
                 <img class="comment-pfp" src="{{comment.user.profile.image.url}}">
                 <p style="margin-left:1%">{{comment.user}}</p>
             </div>
-            <p>{{comment.text}}</p>
-            <small>View {{comment.replys.count}} replys</small>
-            {% for reply in comment.replys.all %}
-                <div style="margin-left:5%; margin-top:1%; display:none;">
-                    <img class="comment-pfp" src="{{reply.user.profile.image.url}}">
-                    <p style="margin-left:1%">{{reply.user}}</p>
-                    <p>{{reply.text}}</p>
-                </div>
-                
-            {% endfor %}
+            <p>{{comment.text}}</p>  
+            <a onclick="showReply({{comment.id}})">View {{comment.replys.count}} replys</a>
+            <div class="replys" id="replys{{comment.id}}" style="margin-top:1%;display:none;">
+                {% for reply in comment.replys.all %}
+                    <div style="margin-left:5%;">
+                        <img class="comment-pfp" src="{{reply.user.profile.image.url}}">
+                        <p style="margin-left:1%">{{reply.user}}</p>
+                        <p>{{reply.text}}</p>
+                    </div>
+                {% endfor %}
+            </div>  
+            
         {% endfor %}
     </div>
 </div>
