@@ -32,7 +32,7 @@
                     <form action="{% url 'reply' comment.id %}" method="post">
                         <div class="input-group flex-nowrap" style="border: 1px solid rgba(88, 88, 88,0.5);border-radius: 5px;">
                             {% csrf_token %}
-                            <input style="border: 0;margin-left:1%;" name="text" id="text" class="form-control" placeholder="Reply to {{comment.user}}...">
+                            <input style="border: 0;margin-left:1%;" name="relpytext" id="relpytext" class="form-control" placeholder="Reply to {{comment.user}}...">
                             <button type="submit" class="btn btn-primary">post</button>
                         </div>
                     </form>
