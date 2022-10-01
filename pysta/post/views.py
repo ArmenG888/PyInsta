@@ -25,7 +25,7 @@ def home(request):
         return render(request, 'post/home.html', context)
 
 @login_required(login_url="/login")
-def comment(request, pk):
+def comment_view(request, pk):
     if request.method == "POST":
         commentform = CommentForm(request.POST)
         if commentform.is_valid():
@@ -37,6 +37,23 @@ def comment(request, pk):
             post_x.save()
 
     return redirect('home')
+
+@login_required(login_url="/login")
+def reply_view(request,pk):
+    print("1")
+    if request.method == "POST":
+        Replyform = ReplyForm(request.POST)
+        if Replyform.is_valid():
+            print("yes")
+            comment_x = comment.objects.get(id=pk)
+            reply_x = reply.objects.create(comment=comment_x, 
+                                   user=request.user,
+                                   text=Replyform.cleaned_data['relpytext'])
+            comment_x.replys.add(reply_x)
+            comment_x.save()
+
+    return redirect('post-detail', comment_x.post.id)
+
 def live_like_data(request,post_id):
     postx = post.objects.all().filter(id=post_id)[0]
     likes = postx.user_liked.count()
@@ -76,23 +93,10 @@ def post_detail_view(request, id):
         i.save()
     comments = post_x.comment_set.all()  
 
-    if request.method == 'POST':
-        commentform = CommentForm(request.POST)
-        if commentform.is_valid():
-            user = request.user
-            text = commentform.cleaned_data['text']
-            cmt = comment(user=user, post=post_x, text=text)
-            cmt.save()
-            post_x.comments.add(cmt)
-            post_x.save()
-            return redirect('post-detail', id)
-    else:
-        commentform = CommentForm()
 
     context = {
         'post':post_x,
         'comments':comments,
-        'commentform': commentform,
     }
     return render(request, 'post/post_detail.html', context)
 

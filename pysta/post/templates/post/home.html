@@ -27,7 +27,7 @@
             {% for comment in post.comments.all|slice:"0:3"%}
                 <p style="font-size:14px;margin-left:1%;"><b style="font-size:14px;">{{comment.user}}</b> {{comment.text}}</p>
             {% endfor %}
-            <form action="{% url 'comment' post.id %}">
+            <form action="{% url 'comment' post.id %}" method="post">
                 <div class="input-group flex-nowrap" style="border: 1px solid rgba(88, 88, 88,0.5);border-radius: 5px;">
                     {% csrf_token %}
                     <input style="border: 0;margin-left:1%;" name="text" id="text" class="form-control" placeholder="Add a comment...">

@@ -17,6 +17,7 @@ urlpatterns = [
     path('search/', views.home, name="user-search"),
     path('p/new_post/', views.new_post, name="new-post"),
     path('ajax/like/<post_id>', views.ajax_like, name="ajax-like"),
-    path('comment/<pk>/', views.comment, name="comment")
+    path('comment/<pk>/', views.comment_view, name="comment"),
+    path('reply/<pk>/', views.reply_view, name="reply"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

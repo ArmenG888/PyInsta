@@ -1,4 +1,6 @@
+{% load static %}
 {% include 'post/base.html' %}
+<script src="{% static 'javascript/reply.js' %}"></script>
 <div class="post-detail">
     <div class="post-detail-content">
         <div class="post-detail-profile-section">
@@ -8,16 +10,43 @@
         <img class="post-detail-image" src="{{post.file.url}}">
         <p>{{post.description}}</p>
     </div>
-    <div class="mb-3">
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    </div>
-    <button type="button" class="btn btn-primary">Primary</button>
-    {% for comment in post.comments.all %}
-        <div>
-            <img class="comment-pfp" src="{{comment.user.profile.image.url}}">
-            <p style="margin-left:1%">{{comment.user}}</p>
+    <form method="post" action="{% url 'comment' post.id %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="text" name="text"></textarea>
         </div>
-        <p>{{comment.text}}</p>
-         
-    {% endfor %}
+        <button type="submit" class="btn btn-primary">post</button>
+    </form>
+    <div class="comments" style="margin-top:1%">
+        {% for comment in post.comments.all %}
+            <div style="margin-top:4%">
+                <div>
+                    <img class="comment-pfp" src="{{comment.user.profile.image.url}}">
+                    <p style="margin-left:1%">{{comment.user}}</p>
+                </div>
+                <p>{{comment.text}}</p>  
+                
+                <a onclick="showReplyForm({{comment.id}})" >Reply</a>
+                <a onclick="showReply({{comment.id}})" style="margin-left:5%;">View {{comment.replys.count}} replys</a>
+                <div id="reply-form{{comment.id}}" style="margin-top:1%;display:none">
+                    <form action="{% url 'reply' comment.id %}" method="post">
+                        <div class="input-group flex-nowrap" style="border: 1px solid rgba(88, 88, 88,0.5);border-radius: 5px;">
+                            {% csrf_token %}
+                            <input style="border: 0;margin-left:1%;" name="relpytext" id="relpytext" class="form-control" placeholder="Reply to {{comment.user}}...">
+                            <button type="submit" class="btn btn-primary">post</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="replys{{comment.id}}" style="margin-top:1%;display:none;">
+                    {% for reply in comment.replys.all %}
+                        <div style="margin-left:5%;">
+                            <img class="comment-pfp" src="{{reply.user.profile.image.url}}">
+                            <p style="margin-left:1%">{{reply.user}}</p>
+                            <p>{{reply.text}}</p>
+                        </div>
+                    {% endfor %}
+                </div>  
+            </div>
+        {% endfor %}
+    </div>
 </div>
