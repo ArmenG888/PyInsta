@@ -37,6 +37,21 @@ def comment_view(request, pk):
             post_x.save()
 
     return redirect('home')
+
+@login_required(login_url="/login")
+def reply_view(request,pk):
+    if request.method == "POST":
+        Replyform = ReplyForm(request.POST)
+        if Replyform.is_valid():
+            comment_x = comment.objects.get(id=pk)
+            reply_x = reply.objects.create(comment=comment_x, 
+                                   user=request.user,
+                                   text=Replyform.cleaned_data['text'])
+            comment_x.replys.add(reply_x)
+            comment_x.save()
+
+    return redirect('home')
+
 def live_like_data(request,post_id):
     postx = post.objects.all().filter(id=post_id)[0]
     likes = postx.user_liked.count()
