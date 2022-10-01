@@ -8,16 +8,19 @@
         <img class="post-detail-image" src="{{post.file.url}}">
         <p>{{post.description}}</p>
     </div>
-    <div class="mb-3">
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    </div>
-    <button type="button" class="btn btn-primary">Primary</button>
+    <form method="post" action="{% url 'comment' post.id %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="text" name="text"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">post</button>
+    </form>
     {% for comment in post.comments.all %}
         <div>
             <img class="comment-pfp" src="{{comment.user.profile.image.url}}">
             <p style="margin-left:1%">{{comment.user}}</p>
         </div>
         <p>{{comment.text}}</p>
-         
+        
     {% endfor %}
 </div>

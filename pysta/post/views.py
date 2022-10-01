@@ -25,7 +25,7 @@ def home(request):
         return render(request, 'post/home.html', context)
 
 @login_required(login_url="/login")
-def comment(request, pk):
+def comment_view(request, pk):
     if request.method == "POST":
         commentform = CommentForm(request.POST)
         if commentform.is_valid():
@@ -76,23 +76,10 @@ def post_detail_view(request, id):
         i.save()
     comments = post_x.comment_set.all()  
 
-    if request.method == 'POST':
-        commentform = CommentForm(request.POST)
-        if commentform.is_valid():
-            user = request.user
-            text = commentform.cleaned_data['text']
-            cmt = comment(user=user, post=post_x, text=text)
-            cmt.save()
-            post_x.comments.add(cmt)
-            post_x.save()
-            return redirect('post-detail', id)
-    else:
-        commentform = CommentForm()
 
     context = {
         'post':post_x,
         'comments':comments,
-        'commentform': commentform,
     }
     return render(request, 'post/post_detail.html', context)
 
