@@ -15,12 +15,22 @@
         </div>
         <button type="submit" class="btn btn-primary">post</button>
     </form>
-    {% for comment in post.comments.all %}
-        <div>
-            <img class="comment-pfp" src="{{comment.user.profile.image.url}}">
-            <p style="margin-left:1%">{{comment.user}}</p>
-        </div>
-        <p>{{comment.text}}</p>
-        
-    {% endfor %}
+    <div class="comments" style="margin-top:1%">
+        {% for comment in post.comments.all %}
+            <div>
+                <img class="comment-pfp" src="{{comment.user.profile.image.url}}">
+                <p style="margin-left:1%">{{comment.user}}</p>
+            </div>
+            <p>{{comment.text}}</p>
+            <small>View {{comment.replys.count}} replys</small>
+            {% for reply in comment.replys.all %}
+                <div style="margin-left:5%; margin-top:1%; display:none;">
+                    <img class="comment-pfp" src="{{reply.user.profile.image.url}}">
+                    <p style="margin-left:1%">{{reply.user}}</p>
+                    <p>{{reply.text}}</p>
+                </div>
+                
+            {% endfor %}
+        {% endfor %}
+    </div>
 </div>
