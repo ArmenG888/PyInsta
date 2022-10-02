@@ -181,6 +181,46 @@
     border-radius: 50%;
     float:left;
 }
+.dms{
+    
+    margin-left:20%;
+    margin-right:20%;
+    margin-top:2%;
+    height: 80.1vh;
+
+    border: solid 1px grey;
+    border-radius:5px;
+}
+
+.dms-users{
+    margin-right:80%;
+    height: 80vh;
+    border-right: solid 1px grey;
+}
+.dms-pfp{
+    height: 3vw;
+    width: 3vw;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top:5%;
+    margin-left:5%;
+    
+}
+.dms-users-info{
+    display: flex;
+}
+.dms-messages{
+    margin-right:20%;
+    
+}
+
+
+
+
+
+
+
+
 @media only screen and (max-width: 750px)
 {
     *{

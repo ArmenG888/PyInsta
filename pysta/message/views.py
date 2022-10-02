@@ -7,8 +7,12 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="/login")
 def threads(request):
-    threads = thread.objects.filter(Q(from_user=request.user) | Q(to_user=request.user))
-    return render(request, "message/all_user_messages.html", {'threads':threads})
+    users = []
+    for i in request.user.profile.following_users.all():
+        if i in request.user.profile.follower_users.all() and i.user != request.user:
+            print(i)
+            users.append(i.user)
+    return render(request, "message/all_user_messages.html", {'users':users})
 
 @login_required(login_url="/login")
 def new_chat(request, username):
